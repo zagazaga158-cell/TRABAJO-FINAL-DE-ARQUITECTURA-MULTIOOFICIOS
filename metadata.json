@@ -1,0 +1,6 @@
+{
+  "name": "ConectaOficios",
+  "description": "Plataforma Web Nacional de Servicios Multioficios en todo el Perú con técnicos y profesionales capacitados y pago protegido en custodia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

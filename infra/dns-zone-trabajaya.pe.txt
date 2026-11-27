@@ -1,0 +1,29 @@
+; ==============================================================================
+; Archivo de Zona DNS (RFC 1035) — TrabajaYa Perú (trabajaya.pe)
+; Proveedor DNS / Edge CDN Recomendado: Cloudflare (PoP Lima - LIM)
+; ==============================================================================
+
+$ORIGIN trabajaya.pe.
+$TTL 300
+
+; Registros principales de aplicación (Proxied vía Cloudflare CDN + WAF)
+@               300     IN  A       203.0.113.10        ; Origin Load Balancer IPv4 (Proxied)
+@               300     IN  AAAA    2001:db8:1::10      ; Origin Load Balancer IPv6 (Proxied)
+www             300     IN  CNAME   trabajaya.pe.       ; Redirección 301 -> https://trabajaya.pe
+api             300     IN  CNAME   trabajaya.pe.       ; API REST + WebSocket /ws/chat (Proxied)
+media           300     IN  CNAME   cdn-bucket.r2.dev.  ; Portafolio público y assets (Proxied + Cache 30d)
+staging         300     IN  A       203.0.113.20        ; Entorno QA / Preproducción (Zero Trust Access)
+
+; Correo Corporativo y Despacho Automático SMTP (server.ts -> Nodemailer)
+@               3600    IN  MX  10  aspmx.l.google.com.
+@               3600    IN  MX  20  alt1.aspmx.l.google.com.
+
+; Autenticación de Correo (Anti-SPAM / Anti-Spoofing para notificaciones de órdenes)
+@               3600    IN  TXT     "v=spf1 include:_spf.google.com ~all"
+google._domainkey 3600  IN  TXT     "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A...REPLACE_KEY"
+_dmarc          3600    IN  TXT     "v=DMARC1; p=quarantine; rua=mailto:seguridad@trabajaya.pe; pct=100"
+
+; Autorización de Autoridades Certificadoras (SSL/TLS)
+@               3600    IN  CAA 0   issue "letsencrypt.org"
+@               3600    IN  CAA 0   issue "pki.goog"
+@               3600    IN  CAA 0   iodef "mailto:seguridad@trabajaya.pe"

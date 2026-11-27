@@ -1,0 +1,117 @@
+name: CD — Publicación GHCR y Despliegue Continuo (Staging -> Producción)
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      target_env:
+        description: 'Ambiente objetivo'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    name: Construir y Publicar Imagen en GHCR
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.meta.outputs.version }}
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v4
+
+      - name: Login en GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generar etiquetas de versión (SHA / SemVer)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build y Push de imagen inmutable
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy-staging:
+    name: Despliegue Automático a Staging + Smoke Test
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment:
+      name: staging
+      url: https://staging.trabajaya.pe
+    steps:
+      - name: Checkout para scripts de verificación
+        uses: actions/checkout@v4
+
+      - name: Desplegar imagen en Staging (Cloud Run / Docker Host)
+        env:
+          DEPLOY_WEBHOOK_STAGING: ${{ secrets.DEPLOY_WEBHOOK_STAGING }}
+        run: |
+          echo "Desplegando ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build-and-push.outputs.image_tag }} en Staging..."
+          if [ -n "$DEPLOY_WEBHOOK_STAGING" ]; then
+            curl -fsSL -X POST "$DEPLOY_WEBHOOK_STAGING" \
+              -H "Content-Type: application/json" \
+              -d "{\"image\":\"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build-and-push.outputs.image_tag }}\"}"
+          else
+            echo "Modo simulación académica: configura DEPLOY_WEBHOOK_STAGING en GitHub Secrets para despliegue real."
+          fi
+
+      - name: Verificación Healthcheck Staging
+        if: vars.STAGING_BASE_URL != ''
+        run: curl -fsS "${{ vars.STAGING_BASE_URL }}/api/health"
+
+  deploy-production:
+    name: Despliegue Controlado a Producción (Zero-Downtime)
+    runs-on: ubuntu-latest
+    needs: [build-and-push, deploy-staging]
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+    environment:
+      name: production
+      url: https://trabajaya.pe
+    steps:
+      - name: Desplegar Rolling Update en Producción
+        env:
+          DEPLOY_WEBHOOK_PROD: ${{ secrets.DEPLOY_WEBHOOK_PROD }}
+        run: |
+          echo "Iniciando Rolling Update con Graceful Shutdown (SIGTERM) para ${{ needs.build-and-push.outputs.image_tag }}..."
+          if [ -n "$DEPLOY_WEBHOOK_PROD" ]; then
+            curl -fsSL -X POST "$DEPLOY_WEBHOOK_PROD" \
+              -H "Content-Type: application/json" \
+              -d "{\"image\":\"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build-and-push.outputs.image_tag }}\"}"
+          else
+            echo "Modo simulación académica: configura DEPLOY_WEBHOOK_PROD y aprobación en GitHub Environment 'production'."
+          fi
+
+      - name: Purga selectiva de index.html en Cloudflare CDN
+        if: secrets.CLOUDFLARE_ZONE_ID != '' && secrets.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"files":["https://trabajaya.pe/","https://trabajaya.pe/index.html"]}'
