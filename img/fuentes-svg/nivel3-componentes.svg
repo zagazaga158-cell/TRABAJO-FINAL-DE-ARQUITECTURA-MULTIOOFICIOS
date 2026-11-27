@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 860" width="1320" height="860" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1320" height="860" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">[Diagrama de componentes] TrabajaYa Perú — API &amp; Monolito Modular</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Modelo C4 · Nivel 3 (componentes) · Estilo: Monolito modular en capas con Clean Architecture</text>
+  <text x="1296" y="28" font-size="11" fill="#64748B" text-anchor="end">Vista de componentes · v2.0</text>
+  
+  
+  <g>
+    <circle cx="250" cy="84" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="162" y="100" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="250" y="120" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Cliente del Hogar</text>
+    <text x="250" y="134" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="250" y="150" font-size="10" fill="#E2E8F0" text-anchor="middle">Solicita, imprevistos S/ 5,</text><text x="250" y="163" font-size="10" fill="#E2E8F0" text-anchor="middle">Escrow y calificaciones</text>
+  </g>
+  
+  <g>
+    <circle cx="520" cy="84" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="432" y="100" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="520" y="120" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Técnico Ofertante</text>
+    <text x="520" y="134" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="520" y="150" font-size="10" fill="#E2E8F0" text-anchor="middle">Expediente 5 bloques,</text><text x="520" y="163" font-size="10" fill="#E2E8F0" text-anchor="middle">anuncios y disponibilidad</text>
+  </g>
+  
+  <g>
+    <circle cx="790" cy="84" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="702" y="100" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="790" y="120" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Admin Único (ADM-001)</text>
+    <text x="790" y="134" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="790" y="150" font-size="10" fill="#E2E8F0" text-anchor="middle">Consola 7 pestañas,</text><text x="790" y="163" font-size="10" fill="#E2E8F0" text-anchor="middle">perfiles y billetera</text>
+  </g>
+
+  
+  <g>
+    <rect x="375" y="206" width="290" height="66" rx="8" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="520" y="225" font-size="11.8" font-weight="700" fill="#FFFFFF" text-anchor="middle">Aplicación Web SPA (React 19)</text>
+    <text x="520" y="238" font-size="9.8" fill="#DBEAFE" text-anchor="middle">[Contenedor: 24 componentes + React.lazy]</text>
+    <text x="520" y="252" font-size="9.5" fill="#FFFFFF" text-anchor="middle">Catálogo, Imprevistos, Carrito, Órdenes, Perfil, Admin</text>
+  </g>
+
+  <rect x="65" y="302" width="915" height="398" fill="none" stroke="#64748B" stroke-width="1.4" stroke-dasharray="7 5"/>
+  <text x="78" y="321" font-size="11.5" font-weight="700" fill="#1E293B">API &amp; Monolito Modular [Node.js 22 + Express 4 + ws]</text>
+
+  
+  <g>
+    <rect x="355" y="336" width="330" height="64" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="520" y="355" font-size="11.8" font-weight="700" fill="#0F172A" text-anchor="middle">Gateway API REST + WS /ws/chat</text>
+    <text x="520" y="368" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Componente: server.ts + Security &amp; RateLimit 429]</text>
+    <text x="520" y="382" font-size="9.5" fill="#0F172A" text-anchor="middle">Enruta /api/*, cabeceras de seguridad, X-Instance-Id, SIGTERM</text>
+  </g>
+
+  <rect x="85" y="424" width="875" height="256" fill="none" stroke="#94A3B8" stroke-width="1.1" stroke-dasharray="4 3"/>
+  <text x="96" y="440" font-size="10" fill="#64748B">Módulos de negocio (fronteras del monolito modular)</text>
+
+  
+  <g>
+    <rect x="100" y="452" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="197.5" y="476" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Identidad &amp; RBAC</text>
+    <text x="197.5" y="491" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M1]</text>
+    <text x="197.5" y="508" font-size="10" fill="#0F172A" text-anchor="middle">2 roles (USUARIO/ADMIN),</text><text x="197.5" y="521.5" font-size="10" fill="#0F172A" text-anchor="middle">ADM-001 único, lista blanca</text>
+  </g>
+  
+  <g>
+    <rect x="315" y="452" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="412.5" y="476" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Expediente 5 Bloques</text>
+    <text x="412.5" y="491" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M3]</text>
+    <text x="412.5" y="508" font-size="10" fill="#0F172A" text-anchor="middle">Domicilio, RUC, Antecedentes 3/3,</text><text x="412.5" y="521.5" font-size="10" fill="#0F172A" text-anchor="middle">MTC, Contrato/Inventario</text>
+  </g>
+  
+  <g>
+    <rect x="530" y="452" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="627.5" y="476" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Catálogo &amp; Ubigeo</text>
+    <text x="627.5" y="491" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M2/M4]</text>
+    <text x="627.5" y="508" font-size="10" fill="#0F172A" text-anchor="middle">14 oficios, 1,878 distritos,</text><text x="627.5" y="521.5" font-size="10" fill="#0F172A" text-anchor="middle">4 planes y moderación Admin</text>
+  </g>
+  
+  <g>
+    <rect x="745" y="452" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="842.5" y="476" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Imprevistos (S/ 5)</text>
+    <text x="842.5" y="491" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M5]</text>
+    <text x="842.5" y="508" font-size="10" fill="#0F172A" text-anchor="middle">Emergencias con fotos,</text><text x="842.5" y="521.5" font-size="10" fill="#0F172A" text-anchor="middle">subasta ofertas y adjudicación</text>
+  </g>
+
+  
+  <g>
+    <rect x="100" y="568" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="197.5" y="592" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Chat WS &amp; Despacho</text>
+    <text x="197.5" y="607" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M8]</text>
+    <text x="197.5" y="624" font-size="10" fill="#0F172A" text-anchor="middle">WS /ws/chat (401 GUEST),</text><text x="197.5" y="637.5" font-size="10" fill="#0F172A" text-anchor="middle">idempotencia + 3 canales</text>
+  </g>
+  
+  <g>
+    <rect x="315" y="568" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="412.5" y="592" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Solicitudes &amp; GPS</text>
+    <text x="412.5" y="607" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M6]</text>
+    <text x="412.5" y="624" font-size="10" fill="#0F172A" text-anchor="middle">Carrito aislado, GPS Maps,</text><text x="412.5" y="637.5" font-size="10" fill="#0F172A" text-anchor="middle">solicitud S/ 0.00 sin cobro</text>
+  </g>
+  
+  <g>
+    <rect x="530" y="568" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="627.5" y="592" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Órdenes Escrow</text>
+    <text x="627.5" y="607" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M7]</text>
+    <text x="627.5" y="624" font-size="10" fill="#0F172A" text-anchor="middle">FSM 6 estados, garantía 10%,</text><text x="627.5" y="637.5" font-size="10" fill="#0F172A" text-anchor="middle">IGV 18%, reseñas y garantía</text>
+  </g>
+  
+  <g>
+    <rect x="745" y="568" width="195" height="88" rx="8" fill="#85BBF0" stroke="#5A9BD5" stroke-width="1.3"/>
+    <text x="842.5" y="592" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Pagos Culqi &amp; Billetera</text>
+    <text x="842.5" y="607" font-size="9.8" fill="#1E3A5F" text-anchor="middle">[Módulo M7/M9]</text>
+    <text x="842.5" y="624" font-size="10" fill="#0F172A" text-anchor="middle">Checkout v4 / API v2 / Sandbox,</text><text x="842.5" y="637.5" font-size="10" fill="#0F172A" text-anchor="middle">6 KPIs y ledger Culqi</text>
+  </g>
+
+  
+  <g>
+    <rect x="1030" y="344" width="245" height="82" rx="8" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="1152.5" y="368" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Caché LRU/TTL / Redis</text>
+    <text x="1152.5" y="383" font-size="9.8" fill="#DBEAFE" text-anchor="middle">[server/cache.ts · Redis 7]</text>
+    <text x="1152.5" y="400" font-size="10" fill="#FFFFFF" text-anchor="middle">ETag 304, /api/cache/stats</text><text x="1152.5" y="413.5" font-size="10" fill="#FFFFFF" text-anchor="middle">99.87% Hit · Invalidación prefijos</text>
+  </g>
+  
+  <g>
+    <rect x="1030" y="458" width="245" height="76" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1152.5" y="482" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Culqi Perú</text>
+    <text x="1152.5" y="497" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1152.5" y="514" font-size="10" fill="#FFFFFF" text-anchor="middle">api.culqi.com/v2/charges</text><text x="1152.5" y="527.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Pagos en PEN (Tarjeta/Yape)</text>
+  </g>
+  
+  <g>
+    <rect x="1030" y="550" width="245" height="76" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1152.5" y="574" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">SMTP / Email Webhook</text>
+    <text x="1152.5" y="589" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1152.5" y="606" font-size="10" fill="#FFFFFF" text-anchor="middle">Nodemailer TLS / Webhook</text><text x="1152.5" y="619.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Envío automático de órdenes</text>
+  </g>
+  
+  <g>
+    <rect x="1030" y="642" width="245" height="76" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1152.5" y="666" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Meta WhatsApp Cloud API</text>
+    <text x="1152.5" y="681" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1152.5" y="698" font-size="10" fill="#FFFFFF" text-anchor="middle">Graph API v20.0 / wa.me</text><text x="1152.5" y="711.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Alertas automáticas +51</text>
+  </g>
+
+  
+  <g>
+    <rect x="375" y="728" width="290" height="74" rx="8" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="520" y="752" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Base de Datos / Almacén</text>
+    <text x="520" y="767" font-size="9.8" fill="#DBEAFE" text-anchor="middle">[PostgreSQL 16 + PgBouncer / .data JSON]</text>
+    <text x="520" y="784" font-size="10" fill="#FFFFFF" text-anchor="middle">14 tablas 3FN, uq_single_admin, GIN FTS, FOR UPDATE</text>
+  </g>
+
+  <path d="M250,184 L250,196 L790,196 L790,184" fill="none" stroke="#475569" stroke-width="1.3"/>
+  <path d="M520,184 L520,204" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="536" y="196" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Usa</text>
+  <path d="M520,272 L520,334" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="520" y="296" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">HTTPS JSON / WSS</text>
+  <path d="M520,400 L520,422" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="520" y="415" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Invoca casos de uso</text>
+
+  <path d="M295,496 L313,496" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  <path d="M510,496 L528,496" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  <path d="M725,496 L743,496" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  <path d="M510,612 L528,612" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  <path d="M725,612 L743,612" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  <path d="M530,612 L530,556 L198,556 L198,566" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="360" y="552" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Despacha 3 canales</text>
+
+  <path d="M685,368 L1028,384" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="860" y="368" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Cache-Aside / ETag</text>
+  <path d="M940,605 L1028,496" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="995" y="535" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Cobra [HTTPS]</text>
+  <path d="M940,625 L1028,588" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="995" y="602" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">SMTP [TLS]</text>
+  <path d="M940,645 L1028,680" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="995" y="672" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">WhatsApp [HTTPS]</text>
+  <path d="M520,700 L520,726" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="520" y="718" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Lee y escribe [SQL / JSON]</text>
+
+  <rect x="65" y="814" width="1210" height="34" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="80" y="835" font-size="10" fill="#334155">Leyenda: Azul oscuro = Persona · Azul medio = Contenedor · Azul claro = Componente modular · Gris = Sistema externo · Todos los módulos corren en un proceso Node.js replicable.</text>
+  
+</svg>

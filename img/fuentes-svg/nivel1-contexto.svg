@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 740" width="1240" height="740" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1240" height="740" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">[Diagrama de contexto del sistema] TrabajaYa Perú (conectaoficios)</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Modelo C4 · Nivel 1 · Quién usa el sistema y con qué sistemas externos del Perú se comunica</text>
+  <text x="1216" y="28" font-size="11" fill="#64748B" text-anchor="end">Vista de contexto · v2.0</text>
+  
+  
+  <g>
+    <circle cx="170" cy="96" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="82" y="112" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="170" y="132" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Visitante (GUEST)</text>
+    <text x="170" y="146" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="170" y="162" font-size="10" fill="#E2E8F0" text-anchor="middle">Explora catálogo 14 oficios</text><text x="170" y="175" font-size="10" fill="#E2E8F0" text-anchor="middle">y solicita sin cobro (S/ 0.00)</text>
+  </g>
+  
+  <g>
+    <circle cx="460" cy="96" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="372" y="112" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="460" y="132" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Cliente del Hogar</text>
+    <text x="460" y="146" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="460" y="162" font-size="10" fill="#E2E8F0" text-anchor="middle">Agenda con GPS, imprevistos S/ 5,</text><text x="460" y="175" font-size="10" fill="#E2E8F0" text-anchor="middle">paga Escrow y califica 1–5★</text>
+  </g>
+  
+  <g>
+    <circle cx="760" cy="96" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="672" y="112" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="760" y="132" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Técnico Ofertante</text>
+    <text x="760" y="146" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="760" y="162" font-size="10" fill="#E2E8F0" text-anchor="middle">Expediente 5 bloques, anuncios,</text><text x="760" y="175" font-size="10" fill="#E2E8F0" text-anchor="middle">cotizaciones y órdenes</text>
+  </g>
+  
+  <g>
+    <circle cx="1060" cy="96" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="972" y="112" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="1060" y="132" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Admin Único (ADM-001)</text>
+    <text x="1060" y="146" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="1060" y="162" font-size="10" fill="#E2E8F0" text-anchor="middle">Consola 7 pestañas: modera,</text><text x="1060" y="175" font-size="10" fill="#E2E8F0" text-anchor="middle">planes, garantías y billetera</text>
+  </g>
+
+  
+  <g>
+    <rect x="410" y="290" width="420" height="118" rx="8" fill="#1168BD" stroke="#0B4884" stroke-width="1.3"/>
+    <text x="620" y="314" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">TrabajaYa Perú (conectaoficios)</text>
+    <text x="620" y="329" font-size="9.8" fill="#DBEAFE" text-anchor="middle">[Sistema de software]</text>
+    <text x="620" y="346" font-size="10" fill="#FFFFFF" text-anchor="middle">Plataforma Web Nacional de Servicios Multioficios Certificados</text><text x="620" y="359.5" font-size="10" fill="#FFFFFF" text-anchor="middle">25 Regiones · 196 Provincias · 1,878 Distritos</text><text x="620" y="373" font-size="10" fill="#FFFFFF" text-anchor="middle">Expediente 5 Bloques · Imprevistos · Despacho 3 Canales · Escrow</text>
+  </g>
+
+  
+  <g>
+    <rect x="60" y="505" width="250" height="92" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="185" y="529" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Culqi Perú</text>
+    <text x="185" y="544" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="185" y="561" font-size="10" fill="#FFFFFF" text-anchor="middle">Checkout v4 + Charges API v2 / Sandbox</text><text x="185" y="574.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Cobros en Soles (PEN): Tarjeta y Yape</text>
+  </g>
+  
+  <g>
+    <rect x="350" y="505" width="250" height="92" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="475" y="529" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Correo SMTP / Webhook</text>
+    <text x="475" y="544" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="475" y="561" font-size="10" fill="#FFFFFF" text-anchor="middle">Nodemailer TLS / EMAIL_WEBHOOK_URL</text><text x="475" y="574.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Despacho automático de solicitudes</text>
+  </g>
+  
+  <g>
+    <rect x="640" y="505" width="250" height="92" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="765" y="529" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Meta WhatsApp Cloud API</text>
+    <text x="765" y="544" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="765" y="561" font-size="10" fill="#FFFFFF" text-anchor="middle">Graph API v20.0 / Webhook / wa.me</text><text x="765" y="574.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Alertas automáticas al +51 del técnico</text>
+  </g>
+  
+  <g>
+    <rect x="930" y="505" width="250" height="92" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1055" y="529" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Google Maps &amp; GPS</text>
+    <text x="1055" y="544" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1055" y="561" font-size="10" fill="#FFFFFF" text-anchor="middle">Browser Geolocation API + Maps URLs</text><text x="1055" y="574.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Ubicación domiciliaria verificable</text>
+  </g>
+
+  <path d="M170,196 L170,348 L408,348" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="270" y="332" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Busca catálogo y</text><text x="270" y="344" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">solicita (S/ 0.00)</text><text x="270" y="356" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[HTTPS]</text>
+  <path d="M460,196 L460,288" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="460" y="238" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Solicita, chatea WS,</text><text x="460" y="250" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">paga Escrow [HTTPS/WSS]</text>
+  <path d="M760,196 L760,288" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="760" y="238" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Gestiona expediente,</text><text x="760" y="250" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">anuncios y órdenes [HTTPS/WSS]</text>
+  <path d="M1060,196 L1060,348 L832,348" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="955" y="332" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Modera, audita 5 bloques</text><text x="955" y="344" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">y billetera [HTTPS]</text>
+
+  <path d="M490,408 L490,455 L185,455 L185,503" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="260" y="448" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Tokeniza y cobra PEN</text><text x="260" y="460" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[HTTPS/REST]</text>
+  <path d="M575,408 L575,470 L475,470 L475,503" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="515" y="463" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Despacha correos</text><text x="515" y="475" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[SMTP/HTTPS]</text>
+  <path d="M665,408 L665,470 L765,470 L765,503" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="725" y="463" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Envía alertas +51</text><text x="725" y="475" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[HTTPS/REST]</text>
+  <path d="M750,408 L750,455 L1055,455 L1055,503" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="975" y="448" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Enlaza GPS lat/lng</text><text x="975" y="460" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[HTTPS]</text>
+
+  <rect x="24" y="630" width="560" height="86" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+  <text x="38" y="650" font-size="11.5" font-weight="700" fill="#1E293B">Leyenda</text>
+  <rect x="38" y="662" width="120" height="24" rx="5" fill="#08427B"/><text x="98" y="678" font-size="10" fill="#FFF" text-anchor="middle">Persona</text>
+  <rect x="172" y="662" width="150" height="24" rx="5" fill="#1168BD"/><text x="247" y="678" font-size="10" fill="#FFF" text-anchor="middle">Sistema en alcance</text>
+  <rect x="336" y="662" width="130" height="24" rx="5" fill="#8A8A8A"/><text x="401" y="678" font-size="10" fill="#FFF" text-anchor="middle">Sistema externo</text>
+  <text x="38" y="704" font-size="9.5" fill="#64748B">Flecha: relación (verbo + [protocolo]) · Cobertura nacional: 25 regiones / 196 provincias / 1,878 distritos</text>
+
+  <rect x="610" y="630" width="606" height="86" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+  <text x="624" y="650" font-size="11.5" font-weight="700" fill="#1E293B">Alcance y Garantías</text>
+  <text x="624" y="668" font-size="10" fill="#334155">• En azul: plataforma construida por el equipo (TrabajaYa Perú / conectaoficios).</text>
+  <text x="624" y="684" font-size="10" fill="#334155">• En gris: integraciones externas desacopladas con degradación elegante (Sandbox / cola local).</text>
+  <text x="624" y="700" font-size="10" fill="#334155">• Seguridad PCI-DSS (CULQI_SECRET_KEY solo en servidor) y privacidad Ley N.º 29733.</text>
+  
+</svg>

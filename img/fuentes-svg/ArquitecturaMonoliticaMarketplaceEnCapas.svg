@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 820" width="1320" height="820" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1320" height="820" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">«monolito» TrabajaYa Perú Backend &amp; Frontend [Node.js 22 LTS · Express 4 · React 19]</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Una sola unidad desplegable con fronteras modulares estrictas y 3 capas internas</text>
+  <text x="1296" y="28" font-size="11" fill="#64748B" text-anchor="end">Estilo arquitectónico · v2.0</text>
+  
+  <!-- Actores arriba -->
+  <rect x="405" y="62" width="100" height="36" rx="4" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.3"/><text x="455" y="84" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Cliente Hogar</text>
+  <rect x="555" y="62" width="120" height="36" rx="4" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.3"/><text x="615" y="84" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Técnico Ofertante</text>
+  <rect x="725" y="62" width="115" height="36" rx="4" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.3"/><text x="782" y="84" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Admin (ADM-001)</text>
+  <path d="M455,98 L455,112 L782,112 L782,98 M615,98 L615,122" fill="none" stroke="#1E293B" stroke-width="1.3"/>
+  <rect x="430" y="122" width="370" height="40" rx="6" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.4"/>
+  <text x="615" y="139" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle">Cliente Web SPA (React 19 + Tailwind v4 + Vite 8)</text>
+  <text x="615" y="154" font-size="9.5" fill="#475569" text-anchor="middle">[Nginx Load Balancer least_conn · Cloudflare CDN]</text>
+  <path d="M615,162 L615,204" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="720" y="186" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">HTTPS JSON /api/* · WSS /ws/chat</text>
+
+  <!-- Límite del monolito -->
+  <rect x="26" y="206" width="1040" height="432" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.6" stroke-dasharray="8 5"/>
+
+  <!-- Capa 1 Presentación -->
+  <rect x="38" y="220" width="1016" height="148" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.2"/>
+  <text x="50" y="248" font-size="11.5" font-weight="700" fill="#1E3A8A">1. CAPA DE</text>
+  <text x="50" y="264" font-size="11.5" font-weight="700" fill="#1E3A8A">PRESENTACIÓN</text>
+  <text x="50" y="286" font-size="9.5" fill="#334155">Recibe HTTP/WS,</text>
+  <text x="50" y="300" font-size="9.5" fill="#334155">valida entrada,</text>
+  <text x="50" y="314" font-size="9.5" fill="#334155">aplica Rate Limit</text>
+  <text x="50" y="328" font-size="9.5" fill="#334155">y responde JSON.</text>
+
+  <rect x="170" y="228" width="870" height="24" rx="4" fill="#DBEAFE" stroke="#2F5FA7" stroke-width="1"/>
+  <text x="605" y="244" font-size="10" font-weight="700" fill="#1E3A8A" text-anchor="middle">Middlewares Express (transversales): express.json(2mb) · Security Headers · X-Instance-Id · Rate Limiter (429) · Static immutable</text>
+
+  <!-- Capa 2 Lógica de negocio -->
+  <rect x="38" y="378" width="1016" height="114" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.2"/>
+  <text x="50" y="408" font-size="11.5" font-weight="700" fill="#166534">2. LÓGICA DE</text>
+  <text x="50" y="424" font-size="11.5" font-weight="700" fill="#166534">NEGOCIO</text>
+  <text x="50" y="446" font-size="9.5" fill="#334155">Reglas Escrow 10%,</text>
+  <text x="50" y="460" font-size="9.5" fill="#334155">IGV 18%, RBAC y</text>
+  <text x="50" y="474" font-size="9.5" fill="#334155">coordinación.</text>
+
+  <!-- Capa 3 Datos y Caché -->
+  <rect x="38" y="502" width="1016" height="126" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.2"/>
+  <text x="50" y="534" font-size="11.5" font-weight="700" fill="#92400E">3. CAPA DE</text>
+  <text x="50" y="550" font-size="11.5" font-weight="700" fill="#92400E">DATOS &amp; CACHÉ</text>
+  <text x="50" y="572" font-size="9.5" fill="#334155">Caché LRU/ETag,</text>
+  <text x="50" y="586" font-size="9.5" fill="#334155">archivos .data/</text>
+  <text x="50" y="600" font-size="9.5" fill="#334155">y PostgreSQL 16.</text>
+
+  <!-- 5 columnas de módulos con borde discontinuo -->
+  
+    <rect x="174" y="260" width="162" height="316" fill="none" stroke="#64748B" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="255" y="274" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">módulo identidad</text>
+    <rect x="182" y="282" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="255" y="302" font-size="9.8" fill="#0F172A" text-anchor="middle">AuthScreen / RBAC</text>
+    <rect x="182" y="324" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="255" y="344" font-size="9.5" fill="#334155" text-anchor="middle">2 permisos + ADM-001</text>
+    <rect x="182" y="400" width="146" height="58" rx="4" fill="#FFFFFF" stroke="#2F7D4F" stroke-width="1.2"/><text x="255" y="424" font-size="10" font-weight="700" fill="#166534" text-anchor="middle">usuarios + 5 Bloques</text><text x="255" y="442" font-size="9" fill="#475569" text-anchor="middle">Reglas y casos de uso</text>
+    <rect x="182" y="516" width="146" height="36" rx="4" fill="#FFFFFF" stroke="#B7791F" stroke-width="1.1"/><text x="255" y="538" font-size="9.8" fill="#78350F" text-anchor="middle">users / dossiers</text>
+    <path d="M255,314 L255,323" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M255,356 L255,399" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M255,458 L255,515" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  
+    <rect x="348" y="260" width="162" height="316" fill="none" stroke="#64748B" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="429" y="274" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">módulo catálogo</text>
+    <rect x="356" y="282" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="429" y="302" font-size="9.8" fill="#0F172A" text-anchor="middle">CatalogoView / Planes</text>
+    <rect x="356" y="324" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="429" y="344" font-size="9.5" fill="#334155" text-anchor="middle">Ubigeo 1,878 + filtros</text>
+    <rect x="356" y="400" width="146" height="58" rx="4" fill="#FFFFFF" stroke="#2F7D4F" stroke-width="1.2"/><text x="429" y="424" font-size="10" font-weight="700" fill="#166534" text-anchor="middle">businessRules + ranking</text><text x="429" y="442" font-size="9" fill="#475569" text-anchor="middle">Reglas y casos de uso</text>
+    <rect x="356" y="516" width="146" height="36" rx="4" fill="#FFFFFF" stroke="#B7791F" stroke-width="1.1"/><text x="429" y="538" font-size="9.8" fill="#78350F" text-anchor="middle">services / plans</text>
+    <path d="M429,314 L429,323" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M429,356 L429,399" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M429,458 L429,515" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  
+    <rect x="522" y="260" width="162" height="316" fill="none" stroke="#64748B" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="603" y="274" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">módulo imprevistos</text>
+    <rect x="530" y="282" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="603" y="302" font-size="9.8" fill="#0F172A" text-anchor="middle">ImprevistosView</text>
+    <rect x="530" y="324" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="603" y="344" font-size="9.5" fill="#334155" text-anchor="middle">Urgencias S/ 5 + fotos</text>
+    <rect x="530" y="400" width="146" height="58" rx="4" fill="#FFFFFF" stroke="#2F7D4F" stroke-width="1.2"/><text x="603" y="424" font-size="10" font-weight="700" fill="#166534" text-anchor="middle">subasta + adjudicación</text><text x="603" y="442" font-size="9" fill="#475569" text-anchor="middle">Reglas y casos de uso</text>
+    <rect x="530" y="516" width="146" height="36" rx="4" fill="#FFFFFF" stroke="#B7791F" stroke-width="1.1"/><text x="603" y="538" font-size="9.8" fill="#78350F" text-anchor="middle">imprevistos / offers</text>
+    <path d="M603,314 L603,323" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M603,356 L603,399" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M603,458 L603,515" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  
+    <rect x="696" y="260" width="162" height="316" fill="none" stroke="#64748B" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="777" y="274" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">módulo escrow</text>
+    <rect x="704" y="282" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="777" y="302" font-size="9.8" fill="#0F172A" text-anchor="middle">Carrito / Ordenes</text>
+    <rect x="704" y="324" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="777" y="344" font-size="9.5" fill="#334155" text-anchor="middle">S/ 0 + GPS + FSM 6 est.</text>
+    <rect x="704" y="400" width="146" height="58" rx="4" fill="#FFFFFF" stroke="#2F7D4F" stroke-width="1.2"/><text x="777" y="424" font-size="10" font-weight="700" fill="#166534" text-anchor="middle">garantía 10% + reseñas</text><text x="777" y="442" font-size="9" fill="#475569" text-anchor="middle">Reglas y casos de uso</text>
+    <rect x="704" y="516" width="146" height="36" rx="4" fill="#FFFFFF" stroke="#B7791F" stroke-width="1.1"/><text x="777" y="538" font-size="9.8" fill="#78350F" text-anchor="middle">orders / history</text>
+    <path d="M777,314 L777,323" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M777,356 L777,399" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M777,458 L777,515" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  
+    <rect x="870" y="260" width="162" height="316" fill="none" stroke="#64748B" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="951" y="274" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">módulo pagos/chat</text>
+    <rect x="878" y="282" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="951" y="302" font-size="9.8" fill="#0F172A" text-anchor="middle">/api/culqi & /ws/chat</text>
+    <rect x="878" y="324" width="146" height="32" rx="4" fill="#FFFFFF" stroke="#2F5FA7" stroke-width="1"/><text x="951" y="344" font-size="9.5" fill="#334155" text-anchor="middle">Culqi + Dispatch 3C</text>
+    <rect x="878" y="400" width="146" height="58" rx="4" fill="#FFFFFF" stroke="#2F7D4F" stroke-width="1.2"/><text x="951" y="424" font-size="10" font-weight="700" fill="#166534" text-anchor="middle">idempotencia + ETag</text><text x="951" y="442" font-size="9" fill="#475569" text-anchor="middle">Reglas y casos de uso</text>
+    <rect x="878" y="516" width="146" height="36" rx="4" fill="#FFFFFF" stroke="#B7791F" stroke-width="1.1"/><text x="951" y="538" font-size="9.8" fill="#78350F" text-anchor="middle">culqi_tx / chat_msg</text>
+    <path d="M951,314 L951,323" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M951,356 L951,399" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+    <path d="M951,458 L951,515" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/>
+  
+
+  <rect x="174" y="582" width="858" height="36" rx="5" fill="#FDE68A" stroke="#B7791F" stroke-width="1.2"/>
+  <text x="603" y="604" font-size="10.5" font-weight="700" fill="#78350F" text-anchor="middle">Acceso a Datos y Caché Compartida: server/cache.ts (LruTtlCache / Redis 7) · PgBouncer Pool · PostgreSQL 16 (database/*.sql)</text>
+
+  <!-- Sistemas externos derecha -->
+  
+  <g>
+    <rect x="1108" y="344" width="184" height="70" rx="8" fill="#E5E7EB" stroke="#475569" stroke-width="1.3"/>
+    <text x="1200" y="368" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">Culqi Perú</text>
+    <text x="1200" y="383" font-size="9.8" fill="#475569" text-anchor="middle">«sistema externo»</text>
+    <text x="1200" y="400" font-size="10" fill="#0F172A" text-anchor="middle">Checkout v4 / API v2 (PEN)</text>
+  </g>
+  
+  <g>
+    <rect x="1108" y="434" width="184" height="70" rx="8" fill="#E5E7EB" stroke="#475569" stroke-width="1.3"/>
+    <text x="1200" y="458" font-size="12.5" font-weight="700" fill="#0F172A" text-anchor="middle">SMTP &amp; WhatsApp</text>
+    <text x="1200" y="473" font-size="9.8" fill="#475569" text-anchor="middle">«sistema externo»</text>
+    <text x="1200" y="490" font-size="10" fill="#0F172A" text-anchor="middle">Nodemailer + Meta Graph v20</text>
+  </g>
+  <path d="M1024,420 L1106,380" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="1068" y="390" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">HTTPS/REST</text>
+  <path d="M1024,442 L1106,468" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="1068" y="466" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">SMTP/WA</text>
+
+  <!-- PostgreSQL abajo -->
+  
+  <g>
+    <path d="M515,686 L515,754 A100,14 0 0,0 715,754 L715,686 Z" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <ellipse cx="615" cy="686" rx="100" ry="14" fill="#5BA0E2" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="615" y="712" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">PostgreSQL 16</text>
+    <text x="615" y="727" font-size="10" fill="#DBEAFE" text-anchor="middle">trabajaya_db</text>
+    <text x="615" y="743" font-size="10" fill="#FFFFFF" text-anchor="middle">14 tablas 3FN + ACID</text>
+  </g>
+  <path d="M615,638 L615,670" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="688" y="658" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">SQL · TCP 6432→5432</text>
+
+  <!-- Leyenda y reglas -->
+  <rect x="26" y="704" width="440" height="94" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+  <text x="40" y="724" font-size="11" font-weight="700" fill="#1E293B">Leyenda</text>
+  <path d="M40,742 L95,742" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="105" y="746" font-size="9.8" fill="#334155">Llamada síncrona entre capas (de arriba hacia abajo)</text>
+  <rect x="40" y="758" width="54" height="14" fill="none" stroke="#64748B" stroke-dasharray="4 3"/><text x="105" y="769" font-size="9.8" fill="#334155">Límite de módulo dentro del monolito modular</text>
+  <rect x="40" y="778" width="54" height="14" fill="#E5E7EB" stroke="#475569"/><text x="105" y="789" font-size="9.8" fill="#334155">Sistema externo (integrado con degradación elegante)</text>
+
+  <rect x="756" y="704" width="536" height="94" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+  <text x="770" y="724" font-size="11" font-weight="700" fill="#1E293B">Reglas de la arquitectura</text>
+  <text x="770" y="742" font-size="9.8" fill="#334155">1. Cada capa solo invoca a la capa inmediatamente inferior o contratos del dominio.</text>
+  <text x="770" y="758" font-size="9.8" fill="#334155">2. Toda escritura de pagos o chat invalida su clave en server/cache.ts.</text>
+  <text x="770" y="774" font-size="9.8" fill="#334155">3. Despliegue unificado replicable (app-1, app-2) detrás de Nginx + Redis + PostgreSQL.</text>
+  
+</svg>

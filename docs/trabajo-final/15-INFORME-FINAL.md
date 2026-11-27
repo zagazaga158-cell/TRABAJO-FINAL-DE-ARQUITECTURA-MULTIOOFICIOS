@@ -4,13 +4,13 @@
 
 ## PORTADA
 
-- **Universidad / Institución:** `[Completar nombre de la Universidad]`
-- **Facultad / Escuela Profesional:** Ingeniería de Sistemas / Ingeniería de Software
-- **Asignatura:** Arquitectura de Software
+- **Universidad / Institución:** Universidad Nacional de San Cristóbal de Huamanga (UNSCH)
+- **Facultad / Escuela Profesional:** Ingeniería de Minas, Geología y Civil — Escuela Profesional de Ingeniería de Sistemas
+- **Asignatura:** IS-488 Arquitectura de Software
 - **Título del Proyecto:** **Diseño, Implementación y Escalabilidad de la Plataforma Web Nacional de Servicios Multioficios Certificados con Custodia Fiduciaria (Escrow) — TrabajaYa Perú (`conectaoficios`)**
 - **Docente:** `[Completar nombre del Docente]`
-- **Integrantes:** `[Completar nombres y códigos]`
-- **Ciudad y Fecha:** Perú, Noviembre de 2026
+- **Autor / Integrante:** Carlos Rodrigo Zaga Huayllasco
+- **Ciudad y Fecha:** Ayacucho, Perú — Noviembre de 2026
 
 ---
 

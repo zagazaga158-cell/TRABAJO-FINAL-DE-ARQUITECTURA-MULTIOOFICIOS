@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 410" width="1120" height="410" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1120" height="410" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">Principio de Inversión de Dependencias (DIP) · Puerto CacheStore</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Los controladores de alto nivel dependen de la abstracción CacheStore, no de la implementación concreta</text>
+  <text x="1096" y="28" font-size="11" fill="#64748B" text-anchor="end">SOLID · Principio D</text>
+  
+  
+  <g>
+    <rect x="28" y="124" width="270" height="143" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.3"/>
+    <text x="163" y="139" font-size="9.5" fill="#64748B" text-anchor="middle">«alto nivel · server.ts»</text>
+    <text x="163" y="155" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Culqi &amp; Chat Controllers</text>
+    <line x1="28" y1="164" x2="298" y2="164" stroke="#2F5FA7" stroke-width="1.1"/>
+    <text x="37" y="179" font-size="10" fill="#1E293B">- cache: CacheStore</text>
+    <line x1="28" y1="193" x2="298" y2="193" stroke="#2F5FA7" stroke-width="1.1"/>
+    <text x="37" y="208" font-size="10" fill="#1E293B">+ GET /payments/culqi/config</text><text x="37" y="223" font-size="10" fill="#1E293B">+ GET /payments/culqi/transactions</text><text x="37" y="238" font-size="10" fill="#1E293B">+ GET /chat/conversations</text><text x="37" y="253" font-size="10" fill="#1E293B">+ GET /cache/stats</text>
+    <circle cx="286" cy="114" r="10" fill="#C53030"/><text x="286" y="117.5" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">D</text>
+  </g>
+  
+  <g>
+    <rect x="398" y="124" width="280" height="143" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.3"/>
+    <text x="538" y="139" font-size="9.5" fill="#64748B" text-anchor="middle">«abstracción · server/cache.ts»</text>
+    <text x="538" y="155" font-size="11.5" font-weight="700" font-style="italic" fill="#0F172A" text-anchor="middle">CacheStore</text>
+    <line x1="398" y1="164" x2="678" y2="164" stroke="#B7791F" stroke-width="1.1"/>
+    
+    <line x1="398" y1="178" x2="678" y2="178" stroke="#B7791F" stroke-width="1.1"/>
+    <text x="407" y="193" font-size="10" fill="#1E293B">+ get&lt;T&gt;(key): CacheEntry | null</text><text x="407" y="208" font-size="10" fill="#1E293B">+ set&lt;T&gt;(key, val, ttl): CacheEntry</text><text x="407" y="223" font-size="10" fill="#1E293B">+ del(key): boolean</text><text x="407" y="238" font-size="10" fill="#1E293B">+ invalidateByPrefix(prefix): number</text><text x="407" y="253" font-size="10" fill="#1E293B">+ stats(): CacheStats</text>
+    <circle cx="666" cy="114" r="10" fill="#6D4AA8"/><text x="666" y="117.5" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">I</text>
+  </g>
+  
+  <g>
+    <rect x="784" y="92" width="298" height="98" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.3"/>
+    <text x="933" y="107" font-size="9.5" fill="#64748B" text-anchor="middle">«bajo nivel · implementado»</text>
+    <text x="933" y="123" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">LruTtlCache</text>
+    <line x1="784" y1="132" x2="1082" y2="132" stroke="#2F7D4F" stroke-width="1.1"/>
+    
+    <line x1="784" y1="146" x2="1082" y2="146" stroke="#2F7D4F" stroke-width="1.1"/>
+    <text x="793" y="161" font-size="10" fill="#1E293B">Map O(1) + LRU + TTL + ETag SHA-1</text><text x="793" y="176" font-size="10" fill="#1E293B">Verificado: 99.87% Hit Ratio</text>
+    <circle cx="1070" cy="82" r="10" fill="#B7791F"/><text x="1070" y="85.5" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">L</text><circle cx="1046" cy="82" r="10" fill="#2F7D4F"/><text x="1046" y="85.5" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">O</text>
+  </g>
+  
+  <g>
+    <rect x="784" y="240" width="298" height="98" fill="#F1ECF9" stroke="#6D4AA8" stroke-width="1.3"/>
+    <text x="933" y="255" font-size="9.5" fill="#64748B" text-anchor="middle">«bajo nivel · clúster prod»</text>
+    <text x="933" y="271" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">RedisCacheStore</text>
+    <line x1="784" y1="280" x2="1082" y2="280" stroke="#6D4AA8" stroke-width="1.1"/>
+    
+    <line x1="784" y1="294" x2="1082" y2="294" stroke="#6D4AA8" stroke-width="1.1"/>
+    <text x="793" y="309" font-size="10" fill="#1E293B">Redis 7 (allkeys-lru 256MB)</text><text x="793" y="324" font-size="10" fill="#1E293B">Compartido entre app-1 .. app-N</text>
+    <circle cx="1070" cy="230" r="10" fill="#B7791F"/><text x="1070" y="233.5" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">L</text><circle cx="1046" cy="230" r="10" fill="#2F7D4F"/><text x="1046" y="233.5" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">O</text>
+  </g>
+
+  <path d="M298,184 L396,184" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#o)"/><text x="347" y="174" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">depende de</text>
+  <path d="M784,140 L680,170" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#t)"/>
+  <path d="M784,284 L680,210" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#t)"/>
+  
+</svg>

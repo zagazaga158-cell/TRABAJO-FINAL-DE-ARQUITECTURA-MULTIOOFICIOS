@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 410" width="1120" height="410" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1120" height="410" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">Strategy / Chain of Fallback · Despacho, Pagos y Ubigeo Perú</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Selección dinámica de algoritmo sin condicionales dispersos y con degradación elegante</text>
+  <text x="1096" y="28" font-size="11" fill="#64748B" text-anchor="end">Patrón de comportamiento · v2.0</text>
+  
+  
+  <g>
+    <rect x="28" y="128" width="260" height="113" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.3"/>
+    <text x="158" y="143" font-size="9.5" fill="#64748B" text-anchor="middle">«contexto»</text>
+    <text x="158" y="159" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Orquestador de Canal / Ubigeo</text>
+    <line x1="28" y1="168" x2="288" y2="168" stroke="#2F5FA7" stroke-width="1.1"/>
+    
+    <line x1="28" y1="182" x2="288" y2="182" stroke="#2F5FA7" stroke-width="1.1"/>
+    <text x="37" y="197" font-size="10" fill="#1E293B">+ resolveDispatchStrategy()</text><text x="37" y="212" font-size="10" fill="#1E293B">+ resolveCulqiMode()</text><text x="37" y="227" font-size="10" fill="#1E293B">+ inferUbicacionPeru()</text>
+    
+  </g>
+  
+  <g>
+    <rect x="382" y="86" width="320" height="98" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.3"/>
+    <text x="542" y="101" font-size="9.5" fill="#64748B" text-anchor="middle">«estrategia A · Producción»</text>
+    <text x="542" y="117" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">APIs Externas Reales</text>
+    <line x1="382" y1="126" x2="702" y2="126" stroke="#2F7D4F" stroke-width="1.1"/>
+    
+    <line x1="382" y1="140" x2="702" y2="140" stroke="#2F7D4F" stroke-width="1.1"/>
+    <text x="391" y="155" font-size="10" fill="#1E293B">Culqi API v2 · Nodemailer SMTP</text><text x="391" y="170" font-size="10" fill="#1E293B">Meta WhatsApp Cloud API v20.0</text>
+    
+  </g>
+  
+  <g>
+    <rect x="382" y="196" width="320" height="98" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.3"/>
+    <text x="542" y="211" font-size="9.5" fill="#64748B" text-anchor="middle">«estrategia B · Intermedia»</text>
+    <text x="542" y="227" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Webhooks Configurables</text>
+    <line x1="382" y1="236" x2="702" y2="236" stroke="#B7791F" stroke-width="1.1"/>
+    
+    <line x1="382" y1="250" x2="702" y2="250" stroke="#B7791F" stroke-width="1.1"/>
+    <text x="391" y="265" font-size="10" fill="#1E293B">EMAIL_WEBHOOK_URL</text><text x="391" y="280" font-size="10" fill="#1E293B">WHATSAPP_WEBHOOK_URL</text>
+    
+  </g>
+  
+  <g>
+    <rect x="382" y="306" width="320" height="98" fill="#F1ECF9" stroke="#6D4AA8" stroke-width="1.3"/>
+    <text x="542" y="321" font-size="9.5" fill="#64748B" text-anchor="middle">«estrategia C · Fallback»</text>
+    <text x="542" y="337" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Sandbox / Cola Local + Enlaces</text>
+    <line x1="382" y1="346" x2="702" y2="346" stroke="#6D4AA8" stroke-width="1.1"/>
+    
+    <line x1="382" y1="360" x2="702" y2="360" stroke="#6D4AA8" stroke-width="1.1"/>
+    <text x="391" y="375" font-size="10" fill="#1E293B">Culqi Sandbox · Chat in-app 100%</text><text x="391" y="390" font-size="10" fill="#1E293B">Gmail / mailto: / wa.me manual</text>
+    
+  </g>
+
+  <path d="M288,162 L380,126" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#o)"/><text x="334" y="134" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">prioridad 1</text>
+  <path d="M288,184 L380,232" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#o)"/><text x="334" y="220" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">prioridad 2</text>
+  <path d="M288,206 L380,340" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="328" y="286" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">fallback</text>
+
+  
+  <g>
+    <path d="M744,128 L1068,128 L1080,140 L1080,254 L744,254 Z" fill="#FEFCE8" stroke="#A16207" stroke-width="1.1"/>
+    <path d="M1068,128 L1068,140 L1080,140" fill="none" stroke="#A16207" stroke-width="1.1"/>
+    <text x="754" y="147" font-size="9.8" fill="#422006">En src/data/peruUbigeo.ts también se aplica</text><text x="754" y="161" font-size="9.8" fill="#422006">cadena de resolución de 6 niveles sobre</text><text x="754" y="175" font-size="9.8" fill="#422006">25 regiones / 196 provincias / 1,878 distritos</text><text x="754" y="189" font-size="9.8" fill="#422006">(tripleta → alias legado → distrito →</text><text x="754" y="203" font-size="9.8" fill="#422006">provincia/región → fallback Lima/Miraflores).</text>
+  </g>
+  
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 726" width="1220" height="726" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1220" height="726" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">[Diagrama de secuencia] Cobro Culqi Perú + Caché LRU/TTL + ETag 304</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Modelo C4 · Nivel 4 · GET /api/payments/culqi/config y POST /api/payments/culqi/charge</text>
+  <text x="1196" y="28" font-size="11" fill="#64748B" text-anchor="end">UML Secuencia · v2.0</text>
+  
+    <rect x="24" y="74" width="136" height="44" rx="6" fill="#F1F5F9" stroke="#475569" stroke-width="1.4"/>
+    <text x="92" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">:Usuario</text>
+    <text x="92" y="108" font-size="9" fill="#475569" text-anchor="middle">navegador</text>
+    <line x1="92" y1="118" x2="92" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="172" y="74" width="136" height="44" rx="6" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.4"/>
+    <text x="240" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">:CulqiModal</text>
+    <text x="240" y="108" font-size="9" fill="#475569" text-anchor="middle">presentación</text>
+    <line x1="240" y1="118" x2="240" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="320" y="74" width="136" height="44" rx="6" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.4"/>
+    <text x="388" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">:server.ts</text>
+    <text x="388" y="108" font-size="9" fill="#475569" text-anchor="middle">express API</text>
+    <line x1="388" y1="118" x2="388" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="468" y="74" width="136" height="44" rx="6" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.4"/>
+    <text x="536" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">:LruTtlCache</text>
+    <text x="536" y="108" font-size="9" fill="#475569" text-anchor="middle">server/cache.ts</text>
+    <line x1="536" y1="118" x2="536" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="616" y="74" width="136" height="44" rx="6" fill="#F1F5F9" stroke="#475569" stroke-width="1.4"/>
+    <text x="684" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">Culqi API v2</text>
+    <text x="684" y="108" font-size="9" fill="#475569" text-anchor="middle">sistema externo</text>
+    <line x1="684" y1="118" x2="684" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="764" y="74" width="136" height="44" rx="6" fill="#F1ECF9" stroke="#6D4AA8" stroke-width="1.4"/>
+    <text x="832" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">:FileStore</text>
+    <text x="832" y="108" font-size="9" fill="#475569" text-anchor="middle">.data/culqi-tx</text>
+    <line x1="832" y1="118" x2="832" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="912" y="74" width="136" height="44" rx="6" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.4"/>
+    <text x="980" y="93" font-size="10.5" font-weight="700" fill="#0F172A" text-anchor="middle">:ConectaCtx</text>
+    <text x="980" y="108" font-size="9" fill="#475569" text-anchor="middle">aplicación</text>
+    <line x1="980" y1="118" x2="980" y2="700" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="5 4"/>
+  
+    <rect x="20" y="356" width="1180" height="318" fill="none" stroke="#475569" stroke-width="1.3"/>
+    <path d="M20,356 L74,356 L74,374 L62,380 L20,380 Z" fill="#F1F5F9" stroke="#475569" stroke-width="1.2"/>
+    <text x="45" y="372" font-size="10.5" font-weight="700" fill="#1E293B" text-anchor="middle">alt</text>
+    <text x="86" y="373" font-size="10" font-weight="700" fill="#0F172A">[validación OK y cobro aprobado (Live / Test / Sandbox)]</text>
+    <line x1="20" y1="582" x2="1200" y2="582" stroke="#475569" stroke-width="1.2" stroke-dasharray="6 4"/>
+    <text x="86" y="599" font-size="10" font-weight="700" fill="#0F172A">[else: token/email/monto &lt; 100 inválido o rechazo Culqi]</text>
+  
+      <line x1="92" y1="150" x2="236" y2="150" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="166" y="144" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">1. Abre pasarela (Imprevisto / Plan / Orden)</text>
+    
+      <line x1="240" y1="182" x2="384" y2="182" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="314" y="176" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">2. GET /api/payments/culqi/config (If-None-Match)</text>
+    
+      <line x1="388" y1="212" x2="532" y2="212" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="462" y="206" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">3. cache.get("culqi:config") [TTL 60s]</text>
+    
+      <line x1="536" y1="240" x2="392" y2="240" stroke="#334155" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#o)"/>
+      <text x="462" y="234" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">HIT + ETag (o 304 Not Modified)</text>
+    
+      <line x1="388" y1="268" x2="244" y2="268" stroke="#334155" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#o)"/>
+      <text x="314" y="262" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">200 OK { publicKey, mode, currency: PEN }</text>
+    
+      <line x1="92" y1="300" x2="236" y2="300" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="166" y="294" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">4. Ingresa Tarjeta/Yape → genera tokenId</text>
+    
+      <line x1="240" y1="332" x2="384" y2="332" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="314" y="326" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">5. POST /api/payments/culqi/charge { tokenId, email, amountCentimos }</text>
+    
+      <line x1="388" y1="404" x2="680" y2="404" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="536" y="398" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">6. POST /v2/charges (Bearer CULQI_SECRET_KEY)</text>
+    
+      <line x1="684" y1="432" x2="392" y2="432" stroke="#334155" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#o)"/>
+      <text x="536" y="426" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">201 Charge Approved (chr_*, auth_code)</text>
+    
+      <line x1="388" y1="462" x2="828" y2="462" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="610" y="456" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">7. appendCulqiTransaction(tx) [max 500]</text>
+    
+      <line x1="388" y1="492" x2="532" y2="492" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="462" y="486" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">8. cache.del("culqi:transactions") [invalidación]</text>
+    
+      <line x1="388" y1="522" x2="244" y2="522" stroke="#334155" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#o)"/>
+      <text x="314" y="516" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">9. 200 OK { ok: true, transaction }</text>
+    
+      <line x1="240" y1="550" x2="976" y2="550" stroke="#334155" stroke-width="1.4" marker-end="url(#a)"/>
+      <text x="610" y="544" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">10. onSuccess(receipt) → acredita operación</text>
+    
+      <line x1="388" y1="632" x2="244" y2="632" stroke="#334155" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#o)"/>
+      <text x="314" y="626" font-size="9.8" fill="#0F172A" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">11. 400 Bad Request { error: "Monto mínimo S/ 1.00 / rechazo" }</text>
+    
+  <g>
+    <path d="M860,606 L1174,606 L1186,618 L1186,680 L860,680 Z" fill="#FEFCE8" stroke="#A16207" stroke-width="1.1"/>
+    <path d="M1174,606 L1174,618 L1186,618" fill="none" stroke="#A16207" stroke-width="1.1"/>
+    <text x="870" y="625" font-size="9.8" fill="#422006">Verificado en tests/integration/server.api.test.ts:</text><text x="870" y="639" font-size="9.8" fill="#422006">• X-Cache: HIT y 304 Not Modified en /config</text><text x="870" y="653" font-size="9.8" fill="#422006">• Invalidación inmediata de culqi:transactions tras POST</text><text x="870" y="667" font-size="9.8" fill="#422006">• CULQI_SECRET_KEY nunca sale del servidor.</text>
+  </g>
+</svg>

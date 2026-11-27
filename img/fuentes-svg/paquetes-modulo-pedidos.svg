@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 460" width="1120" height="460" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1120" height="460" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">Diagrama de paquetes · TrabajaYa Perú (conectaoficios)</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">src/ · server/ · database/ · las dependencias apuntan estrictamente hacia el dominio</text>
+  <text x="1096" y="28" font-size="11" fill="#64748B" text-anchor="end">Paquetes UML · v2.0</text>
+  
+  
+  <g>
+    <rect x="24" y="78" width="113.6" height="21" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.3"/>
+    <rect x="24" y="99" width="220" height="180" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.3"/>
+    <text x="33" y="93" font-size="11.5" font-weight="700" fill="#1E293B">presentacion</text>
+    <text x="36" y="122" font-size="10.5" fill="#1E293B">src/App.tsx (React.lazy)</text><text x="36" y="139" font-size="10.5" fill="#1E293B">src/components/*.tsx (24)</text><text x="36" y="156" font-size="10.5" fill="#1E293B">server.ts (Express routes)</text><text x="36" y="173" font-size="10.5" fill="#1E293B">server.ts (WS /ws/chat)</text><text x="36" y="190" font-size="10.5" fill="#1E293B">Rate Limiter + Security</text>
+  </g>
+  
+  <g>
+    <rect x="306" y="78" width="98" height="21" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.3"/>
+    <rect x="306" y="99" width="220" height="180" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.3"/>
+    <text x="315" y="93" font-size="11.5" font-weight="700" fill="#1E293B">aplicacion</text>
+    <text x="318" y="122" font-size="10.5" fill="#1E293B">ConectaContext.tsx (45+)</text><text x="318" y="139" font-size="10.5" fill="#1E293B">peruUbigeo.ts (1,878)</text><text x="318" y="156" font-size="10.5" fill="#1E293B">whatsappSolicitud.ts</text><text x="318" y="173" font-size="10.5" fill="#1E293B">upsertConversation()</text><text x="318" y="190" font-size="10.5" fill="#1E293B">dispatch-order pipeline</text>
+  </g>
+  
+  <g>
+    <rect x="588" y="78" width="92" height="21" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.3"/>
+    <rect x="588" y="99" width="220" height="180" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.3"/>
+    <text x="597" y="93" font-size="11.5" font-weight="700" fill="#1E293B">dominio</text>
+    <text x="600" y="122" font-size="10.5" fill="#1E293B">src/types/index.ts (17)</text><text x="600" y="139" font-size="10.5" fill="#1E293B">businessRules.ts (Escrow)</text><text x="600" y="156" font-size="10.5" fill="#1E293B">GRUPOS / CATEGORIAS (14)</text><text x="600" y="173" font-size="10.5" fill="#1E293B">EstadoOrden (FSM 6 est.)</text><text x="600" y="190" font-size="10.5" fill="#1E293B">Puerto CacheStore</text>
+  </g>
+  
+  <g>
+    <rect x="870" y="78" width="137" height="21" fill="#F1ECF9" stroke="#6D4AA8" stroke-width="1.3"/>
+    <rect x="870" y="99" width="226" height="180" fill="#F1ECF9" stroke="#6D4AA8" stroke-width="1.3"/>
+    <text x="879" y="93" font-size="11.5" font-weight="700" fill="#1E293B">infraestructura</text>
+    <text x="882" y="122" font-size="10.5" fill="#1E293B">server/cache.ts (LruTtl)</text><text x="882" y="139" font-size="10.5" fill="#1E293B">Culqi v2 + Sandbox</text><text x="882" y="156" font-size="10.5" fill="#1E293B">SMTP + Meta WhatsApp</text><text x="882" y="173" font-size="10.5" fill="#1E293B">mediaUpload.ts + .data/</text><text x="882" y="190" font-size="10.5" fill="#1E293B">database/*.sql (PG 16)</text>
+  </g>
+
+  <path d="M244,188 L304,188" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="274" y="179" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«import»</text>
+  <path d="M526,188 L586,188" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="556" y="179" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«import»</text>
+  <path d="M870,188 L810,188" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="840" y="179" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«implementa»</text>
+
+  
+  <g>
+    <rect x="24" y="326" width="449" height="21" fill="#F1F5F9" stroke="#64748B" stroke-width="1.3"/>
+    <rect x="24" y="347" width="1072" height="74" fill="#F1F5F9" stroke="#64748B" stroke-width="1.3"/>
+    <text x="33" y="341" font-size="11.5" font-weight="700" fill="#1E293B">server.ts (createAppServer) &amp; App.tsx (ConectaProvider)</text>
+    <text x="36" y="370" font-size="10.5" fill="#1E293B">Raíz de composición: instancia LruTtlCache, inyecta dataDir/entorno, registra rutas REST + WebSocket /ws/chat y provee ConectaContext.</text><text x="36" y="387" font-size="10.5" fill="#1E293B">Es el único punto que conecta los adaptadores concretos de infraestructura con la aplicación y la presentación.</text>
+  </g>
+
+  <path d="M134,347 L134,282" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="158" y="314" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«crea»</text>
+  <path d="M416,347 L416,282" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="440" y="314" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«crea»</text>
+  <path d="M982,347 L982,282" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="1006" y="314" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«crea»</text>
+  
+</svg>

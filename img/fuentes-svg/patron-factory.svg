@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 410" width="1120" height="410" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1120" height="410" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">Factory · createAppServer(options) en server.ts</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Fábrica de instancias aisladas para Producción, Desarrollo y Suites Automatizadas (Vitest / Playwright / k6)</text>
+  <text x="1096" y="28" font-size="11" fill="#64748B" text-anchor="end">Patrón creacional · v2.0</text>
+  
+  
+  <g>
+    <rect x="34" y="128" width="290" height="113" fill="#EAF1FB" stroke="#2F5FA7" stroke-width="1.3"/>
+    <text x="179" y="143" font-size="9.5" fill="#64748B" text-anchor="middle">«factory · server.ts»</text>
+    <text x="179" y="159" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">createAppServer(options)</text>
+    <line x1="34" y1="168" x2="324" y2="168" stroke="#2F5FA7" stroke-width="1.1"/>
+    <text x="43" y="183" font-size="10" fill="#1E293B">+ dataDir?: string</text><text x="43" y="198" font-size="10" fill="#1E293B">+ attachFrontend?: boolean</text>
+    <line x1="34" y1="212" x2="324" y2="212" stroke="#2F5FA7" stroke-width="1.1"/>
+    <text x="43" y="227" font-size="10" fill="#1E293B">+ returns { app, server, wss }</text>
+    
+  </g>
+  
+  <g>
+    <rect x="420" y="86" width="300" height="98" fill="#E8F3EC" stroke="#2F7D4F" stroke-width="1.3"/>
+    <text x="570" y="101" font-size="9.5" fill="#64748B" text-anchor="middle">«producto · prod/dev»</text>
+    <text x="570" y="117" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Servidor Full-Stack (Puerto 3000)</text>
+    <line x1="420" y1="126" x2="720" y2="126" stroke="#2F7D4F" stroke-width="1.1"/>
+    
+    <line x1="420" y1="140" x2="720" y2="140" stroke="#2F7D4F" stroke-width="1.1"/>
+    <text x="429" y="155" font-size="10" fill="#1E293B">attachFrontend: true (Vite / dist)</text><text x="429" y="170" font-size="10" fill="#1E293B">dataDir: .data/ · SIGTERM shutdown</text>
+    
+  </g>
+  
+  <g>
+    <rect x="420" y="200" width="300" height="98" fill="#FDF3E3" stroke="#B7791F" stroke-width="1.3"/>
+    <text x="570" y="215" font-size="9.5" fill="#64748B" text-anchor="middle">«producto · integración»</text>
+    <text x="570" y="231" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Instancia Aislada Supertest/WS</text>
+    <line x1="420" y1="240" x2="720" y2="240" stroke="#B7791F" stroke-width="1.1"/>
+    
+    <line x1="420" y1="254" x2="720" y2="254" stroke="#B7791F" stroke-width="1.1"/>
+    <text x="429" y="269" font-size="10" fill="#1E293B">attachFrontend: false</text><text x="429" y="284" font-size="10" fill="#1E293B">dataDir: os.tmpdir() (9 tests)</text>
+    
+  </g>
+  
+  <g>
+    <rect x="420" y="308" width="300" height="98" fill="#F1ECF9" stroke="#6D4AA8" stroke-width="1.3"/>
+    <text x="570" y="323" font-size="9.5" fill="#64748B" text-anchor="middle">«producto · carga»</text>
+    <text x="570" y="339" font-size="11.5" font-weight="700"  fill="#0F172A" text-anchor="middle">Instancia Benchmark (test:load)</text>
+    <line x1="420" y1="348" x2="720" y2="348" stroke="#6D4AA8" stroke-width="1.1"/>
+    
+    <line x1="420" y1="362" x2="720" y2="362" stroke="#6D4AA8" stroke-width="1.1"/>
+    <text x="429" y="377" font-size="10" fill="#1E293B">RATE_LIMIT_MAX_REQ=0</text><text x="429" y="392" font-size="10" fill="#1E293B">5,180 req · 3,891.9 RPS</text>
+    
+  </g>
+
+  <path d="M324,162 L418,124" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="370" y="134" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«crea»</text>
+  <path d="M324,184 L418,236" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="370" y="222" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«crea»</text>
+  <path d="M324,206 L418,340" fill="none" stroke="#475569" stroke-width="1.45" stroke-dasharray="5 4" marker-end="url(#o)"/><text x="362" y="292" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">«crea»</text>
+
+  
+  <g>
+    <path d="M764,128 L1068,128 L1080,140 L1080,254 L764,254 Z" fill="#FEFCE8" stroke="#A16207" stroke-width="1.1"/>
+    <path d="M1068,128 L1068,140 L1080,140" fill="none" stroke="#A16207" stroke-width="1.1"/>
+    <text x="774" y="147" font-size="9.8" fill="#422006">Permite probar el backend real HTTP</text><text x="774" y="161" font-size="9.8" fill="#422006">y WebSocket sin levantar puertos fijos</text><text x="774" y="175" font-size="9.8" fill="#422006">ni modificar los datos de desarrollo.</text><text x="774" y="189" font-size="9.8" fill="#422006">Se evita auto-start cuando</text><text x="774" y="203" font-size="9.8" fill="#422006">VITEST === "true" o NODE_ENV === "test".</text>
+  </g>
+  
+</svg>

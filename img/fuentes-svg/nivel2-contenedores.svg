@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 820" width="1240" height="820" font-family="-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803D"/></marker>
+  <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6D4AA8"/></marker>
+  <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+  <marker id="t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#FFFFFF" stroke="#475569" stroke-width="1.4"/></marker>
+  <marker id="d" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="14" markerHeight="9" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#475569"/></marker>
+</defs>
+  <rect width="1240" height="820" fill="#FFFFFF"/>
+  <text x="24" y="30" font-size="17" font-weight="700" fill="#1E293B">[Diagrama de contenedores] TrabajaYa Perú (conectaoficios)</text>
+  <text x="24" y="49" font-size="11.5" fill="#64748B">Modelo C4 · Nivel 2 · Aplicaciones, servidor Express/WS, caché LRU/Redis y bases de datos</text>
+  <text x="1216" y="28" font-size="11" fill="#64748B" text-anchor="end">Vista de contenedores · v2.0</text>
+  
+  
+  <g>
+    <circle cx="250" cy="90" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="162" y="106" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="250" y="126" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Cliente del Hogar</text>
+    <text x="250" y="140" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="250" y="156" font-size="10" fill="#E2E8F0" text-anchor="middle">Busca, agenda con GPS,</text><text x="250" y="169" font-size="10" fill="#E2E8F0" text-anchor="middle">paga Escrow y califica</text>
+  </g>
+  
+  <g>
+    <circle cx="520" cy="90" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="432" y="106" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="520" y="126" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Técnico Ofertante</text>
+    <text x="520" y="140" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="520" y="156" font-size="10" fill="#E2E8F0" text-anchor="middle">Expediente 5 bloques,</text><text x="520" y="169" font-size="10" fill="#E2E8F0" text-anchor="middle">anuncios y órdenes</text>
+  </g>
+  
+  <g>
+    <circle cx="790" cy="90" r="22" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <rect x="702" y="106" width="176" height="84" rx="14" fill="#08427B" stroke="#052E56" stroke-width="1.2"/>
+    <text x="790" y="126" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Admin Único (ADM-001)</text>
+    <text x="790" y="140" font-size="10" fill="#BFDBFE" text-anchor="middle">[Persona]</text>
+    <text x="790" y="156" font-size="10" fill="#E2E8F0" text-anchor="middle">Modera, planes, garantías</text><text x="790" y="169" font-size="10" fill="#E2E8F0" text-anchor="middle">y billetera fiduciaria</text>
+  </g>
+
+  <rect x="60" y="226" width="840" height="474" fill="none" stroke="#64748B" stroke-width="1.4" stroke-dasharray="7 5"/>
+  <text x="74" y="246" font-size="11.5" font-weight="700" fill="#1E293B">TrabajaYa Perú [Sistema de software]</text>
+
+  
+  <g>
+    <rect x="290" y="264" width="370" height="88" rx="8" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="475" y="288" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Aplicación Web SPA (src/)</text>
+    <text x="475" y="303" font-size="9.8" fill="#DBEAFE" text-anchor="middle">[Contenedor: React 19 + TypeScript + Tailwind v4 + Vite 8]</text>
+    <text x="475" y="320" font-size="10" fill="#FFFFFF" text-anchor="middle">24 componentes activos con React.lazy() + manualChunks</text><text x="475" y="333.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Catálogo 14 oficios, Expediente 5 Bloques, Culqi v4, GPS y localStorage</text>
+  </g>
+
+  
+  <g>
+    <rect x="245" y="396" width="460" height="114" rx="8" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="475" y="420" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">API &amp; WebSocket Server (server.ts)</text>
+    <text x="475" y="435" font-size="9.8" fill="#DBEAFE" text-anchor="middle">[Contenedor: Node.js 22 + Express 4 + ws + Nodemailer]</text>
+    <text x="475" y="452" font-size="10" fill="#FFFFFF" text-anchor="middle">Monolito Modular: /api/health, /api/cache/stats, /api/payments/culqi/*,</text><text x="475" y="465.5" font-size="10" fill="#FFFFFF" text-anchor="middle">/api/chat/*, /api/notifications/dispatch-order y WS /ws/chat</text><text x="475" y="479" font-size="10" fill="#FFFFFF" text-anchor="middle">Rate Limiter 429, Security Headers, LruTtlCache (ETag 304) y SIGTERM</text>
+  </g>
+
+  
+  <g>
+    <path d="M110,574 L110,664 A115,14 0 0,0 340,664 L340,574 Z" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <ellipse cx="225" cy="574" rx="115" ry="14" fill="#5BA0E2" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="225" y="600" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Base de Datos</text>
+    <text x="225" y="615" font-size="10" fill="#DBEAFE" text-anchor="middle">[PostgreSQL 16 + PgBouncer]</text>
+    <text x="225" y="631" font-size="10" fill="#FFFFFF" text-anchor="middle">14 tablas 3FN, uq_single_admin,</text><text x="225" y="644.5" font-size="10" fill="#FFFFFF" text-anchor="middle">GIN FTS, particiones y FOR UPDATE</text>
+  </g>
+  
+  <g>
+    <path d="M365,574 L365,664 A110,14 0 0,0 585,664 L585,574 Z" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <ellipse cx="475" cy="574" rx="110" ry="14" fill="#5BA0E2" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="475" y="600" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Caché &amp; Pub/Sub</text>
+    <text x="475" y="615" font-size="10" fill="#DBEAFE" text-anchor="middle">[LruTtlCache / Redis 7]</text>
+    <text x="475" y="631" font-size="10" fill="#FFFFFF" text-anchor="middle">ETag 304 (99.87% Hit Ratio),</text><text x="475" y="644.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Pub/Sub WS y Locks de turnos</text>
+  </g>
+  
+  <g>
+    <path d="M610,574 L610,664 A120,14 0 0,0 850,664 L850,574 Z" fill="#438DD5" stroke="#2E6295" stroke-width="1.3"/>
+    <ellipse cx="730" cy="574" rx="120" ry="14" fill="#5BA0E2" stroke="#2E6295" stroke-width="1.3"/>
+    <text x="730" y="600" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Almacén Local / S3</text>
+    <text x="730" y="615" font-size="10" fill="#DBEAFE" text-anchor="middle">[.data/*.json / S3 Privado]</text>
+    <text x="730" y="631" font-size="10" fill="#FFFFFF" text-anchor="middle">chat-store, dispatch-log (200),</text><text x="730" y="644.5" font-size="10" fill="#FFFFFF" text-anchor="middle">culqi-transactions (500) y medios</text>
+  </g>
+
+  
+  <g>
+    <rect x="945" y="360" width="255" height="84" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1072.5" y="384" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Culqi Perú</text>
+    <text x="1072.5" y="399" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1072.5" y="416" font-size="10" fill="#FFFFFF" text-anchor="middle">Checkout v4 + Charges API v2 / Sandbox</text><text x="1072.5" y="429.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Cobros seguros en PEN</text>
+  </g>
+  
+  <g>
+    <rect x="945" y="464" width="255" height="84" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1072.5" y="488" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">SMTP / Email Webhook</text>
+    <text x="1072.5" y="503" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1072.5" y="520" font-size="10" fill="#FFFFFF" text-anchor="middle">Nodemailer TLS / Webhook</text><text x="1072.5" y="533.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Despacho automático de órdenes</text>
+  </g>
+  
+  <g>
+    <rect x="945" y="568" width="255" height="84" rx="8" fill="#8A8A8A" stroke="#666666" stroke-width="1.3"/>
+    <text x="1072.5" y="592" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Meta WhatsApp Cloud API</text>
+    <text x="1072.5" y="607" font-size="9.8" fill="#E5E7EB" text-anchor="middle">[Sistema externo]</text>
+    <text x="1072.5" y="624" font-size="10" fill="#FFFFFF" text-anchor="middle">Graph API v20.0 / Webhook / wa.me</text><text x="1072.5" y="637.5" font-size="10" fill="#FFFFFF" text-anchor="middle">Notificaciones +51</text>
+  </g>
+
+  <path d="M250,190 L250,204 L790,204 L790,190" fill="none" stroke="#475569" stroke-width="1.4"/>
+  <path d="M520,190 L520,204" fill="none" stroke="#475569" stroke-width="1.4"/>
+  <path d="M475,204 L475,262" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="586" y="238" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Usa vía Cloudflare CDN / Nginx</text><text x="586" y="250" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[HTTPS / WSS]</text>
+  <path d="M475,352 L475,394" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="475" y="370" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Consume REST y WebSocket</text><text x="475" y="382" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">[HTTPS JSON / WSS]</text>
+  <path d="M340,510 L340,536 L225,536 L225,558" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="245" y="532" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">SQL ACID [TCP 6432→5432]</text>
+  <path d="M475,510 L475,558" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="475" y="536" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Cache-Aside [O(1) / TCP 6379]</text>
+  <path d="M610,510 L610,536 L730,536 L730,558" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="715" y="532" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">JSON FS / URLs Prefirmadas</text>
+
+  <path d="M705,425 L943,402" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="825" y="405" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Cobra PEN [HTTPS/REST]</text>
+  <path d="M705,455 L943,505" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="825" y="488" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Envía correo [SMTP/HTTPS]</text>
+  <path d="M705,485 L943,605" fill="none" stroke="#475569" stroke-width="1.45" marker-end="url(#a)"/><text x="825" y="558" font-size="9.5" fill="#334155" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">Alerta +51 [HTTPS/REST]</text>
+
+  <rect x="60" y="718" width="460" height="82" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+  <text x="74" y="738" font-size="11.5" font-weight="700" fill="#1E293B">Leyenda</text>
+  <rect x="74" y="748" width="100" height="22" rx="4" fill="#08427B"/><text x="124" y="763" font-size="10" fill="#FFF" text-anchor="middle">Persona</text>
+  <rect x="184" y="748" width="110" height="22" rx="4" fill="#438DD5"/><text x="239" y="763" font-size="10" fill="#FFF" text-anchor="middle">Contenedor</text>
+  <rect x="304" y="748" width="120" height="22" rx="4" fill="#8A8A8A"/><text x="364" y="763" font-size="10" fill="#FFF" text-anchor="middle">Sistema externo</text>
+  <text x="74" y="788" font-size="9.5" fill="#64748B">Línea discontinua: límite del sistema · Cilindro: almacén de datos / caché</text>
+
+  <rect x="540" y="718" width="660" height="82" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+  <text x="554" y="738" font-size="11.5" font-weight="700" fill="#1E293B">Notas de Despliegue y Rendimiento</text>
+  <text x="554" y="756" font-size="10" fill="#334155">• Nginx balancea réplicas app-1 y app-2 (least_conn) con soporte nativo para WebSocket /ws/chat.</text>
+  <text x="554" y="772" font-size="10" fill="#334155">• Vite code splitting difiere >382 kB (TecnicoAdminView, PerfilView, OrdenesView) fuera del bundle inicial.</text>
+  <text x="554" y="788" font-size="10" fill="#334155">• Benchmark real verificado: 3,891.9 RPS · p95 = 48.03–54.69 ms · 0% errores · 99.87% Cache Hit.</text>
+  
+</svg>
