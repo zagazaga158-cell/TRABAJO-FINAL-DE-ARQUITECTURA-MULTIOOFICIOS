@@ -21,7 +21,7 @@
 
 ## 📑 Índice Rápido para la Exposición
 
-1. [Resumen Ejecutivo del Proyecto](#1-resumen-ejecutivo-del-proyecto)
+1. [Resumen Ejecutivo del Proyecto y Stack Tecnológico](#1-resumen-ejecutivo-del-proyecto)
 2. [Estilo Arquitectónico — Monolito Modular en Capas](#2-estilo-arquitectónico--monolito-modular-en-capas)
 3. [Patrón Arquitectónico — Clean Architecture en Código Real](#3-patrón-arquitectónico--clean-architecture-en-código-real)
 4. [Especificaciones SDD, Criterios de Aceptación y Tareas Técnicas](#4-especificaciones-sdd-criterios-de-aceptación-y-tareas-técnicas)
@@ -50,6 +50,22 @@
 | Documentación de API mediante OpenAPI / Swagger | ✅ **100%** | [`docs/openapi.json`](./openapi.json) · Swagger UI interactivo en `GET /api-docs` y `GET /api/openapi.json` |
 | Pruebas automatizadas con Jest y reporte de cobertura | ✅ **100%** | **7/7 suites · 44/44 pruebas** · **96.53% Statements/Lines, 97.18% Functions** ([`jest.config.cjs`](../jest.config.cjs)) |
 | Evidencias y resultados de validación de atributos de calidad | ✅ **100%** | [`docs/evidencias/load-2000vu-results.json`](./evidencias/load-2000vu-results.json) · [`stress-2000vu.k6.js`](../tests/load/stress-2000vu.k6.js) · [Colección Postman](./postman/TrabajaYa-Peru.postman_collection.json) |
+
+### 🛠️ Stack Tecnológico Utilizado
+
+| Categoría | Tecnologías | Uso Exacto en TrabajaYa Perú |
+| :--- | :--- | :--- |
+| **Frontend (UI)** | **React 19**, **TypeScript**, **Vite 8**, **Tailwind CSS v4**, **Lucide React**, **Motion** | SPA responsiva con *Code Splitting* (`React.lazy` + `manualChunks`), diseño modular, íconos y animaciones (`src/`). |
+| **Backend (API / Tiempo Real)** | **Node.js** (22/24), **Express 4**, **WebSocket (`ws`)**, **tsx**, **esbuild**, **Nodemailer**, **dotenv** | Monolito Modular en Clean Architecture (`server/` + `server.ts`), 12 endpoints REST, chat en vivo (`/ws/chat`) y correo SMTP. |
+| **Documentación de API** | **OpenAPI 3.0.3**, **Swagger UI (`swagger-ui-express`)**, **Postman** | Documentación interactiva en `/api-docs`, especificación en `docs/openapi.json` y colección Postman con pruebas automáticas. |
+| **Caché y Base de Datos** | **Caché LRU/TTL + ETag** (en memoria), **PostgreSQL 16**, **PgBouncer**, **Redis 7**, JSON/localStorage *(prototipo)* | `LruTtlCache` real (`99.98%` Hit Ratio); esquema ACID + índices GIN + particiones + `FOR UPDATE` en `database/` y pooling en `infra/pgbouncer.ini`. |
+| **Integraciones Externas** | **Culqi Perú** (Checkout v4 + API v2 / Sandbox), **Meta WhatsApp Cloud API v20**, **Google Maps / GPS**, **`@google/genai`** *(preparado)* | Pagos en Soles (`PEN`) con tarjeta/Yape, despacho automático por WhatsApp, geolocalización de visitas y SDK de IA preparado. |
+| **Pruebas y Carga** | **Jest** (+ cobertura **V8**), **Supertest**, **Playwright (Chromium)**, **k6** | 44 pruebas unitarias/integración con `96.53%` cobertura, 6 E2E en navegador real y simulación progresiva hasta **2,000 VUs**. |
+| **DevOps e Infraestructura** | **Docker** (multi-stage), **Docker Compose**, **Nginx 1.27**, **GitHub Actions (CI/CD)**, **GHCR**, **Cloudflare DNS/CDN** | Contenedores *stateless*, balanceo `least_conn` (`infra/nginx.conf`), CI/CD automatizado (`ci.yml`, `cd.yml`) y zona DNS. |
+
+> [!TIP]
+> **Qué decir si el profesor pregunta qué corre en local vs. producción:**
+> *"En local ejecutamos React 19 + Vite 8 + Node.js/Express + WebSocket + Swagger UI + Caché LRU/TTL en memoria + persistencia JSON/localStorage para facilitar la demo sin dependencias externas; y en `database/`, `infra/` y `docker-compose.yml` ya están aprovisionados PostgreSQL 16, PgBouncer, Redis 7 y Nginx para el despliegue horizontal productivo."*
 
 ---
 

@@ -28,6 +28,22 @@
 
 ---
 
+## 1.1 Stack Tecnológico Completo (Para explicar en Slide 05 / 06)
+
+| Categoría | Tecnologías Usadas | Función en el Proyecto |
+| :--- | :--- | :--- |
+| **Frontend** | **React 19**, **TypeScript**, **Vite 8**, **Tailwind CSS v4**, **Lucide React**, **Motion** | SPA responsiva con *Code Splitting* (`React.lazy` + `manualChunks`), íconos y animaciones (`src/`). |
+| **Backend** | **Node.js (22/24)**, **Express 4**, **WebSocket (`ws`)**, **tsx**, **esbuild**, **Nodemailer**, **dotenv** | Monolito Modular en Clean Architecture (`server/` + `server.ts`), 12 endpoints REST, chat `/ws/chat` y despacho SMTP. |
+| **Documentación API** | **OpenAPI 3.0.3**, **Swagger UI (`swagger-ui-express`)**, **Postman** | Interfaz interactiva `/api-docs`, especificación `docs/openapi.json` y colección Postman con aserciones de calidad. |
+| **Caché y Base de Datos** | **Caché LRU/TTL + ETag**, **PostgreSQL 16**, **PgBouncer**, **Redis 7**, JSON/localStorage *(prototipo)* | Caché en memoria con `99.98%` Hit Ratio + esquema SQL ACID (`database/`), índices GIN, particiones, `FOR UPDATE` y connection pooling. |
+| **Integraciones** | **Culqi Perú** (Checkout v4 + API v2 / Sandbox), **Meta WhatsApp Cloud API v20**, **Google Maps / GPS**, **`@google/genai`** | Pagos en `PEN` (tarjeta/Yape), despacho multicanal, ubicación GPS y dependencia IA preparada. |
+| **Pruebas y Calidad** | **Jest** (+ cobertura **V8**), **Supertest**, **Playwright (Chromium)**, **k6** | 44 pruebas Jest (`96.53%` cobertura), 6 E2E reales y pruebas de carga progresivas hasta **2,000 VUs**. |
+| **DevOps e Infra** | **Docker** (multi-stage), **Docker Compose**, **Nginx 1.27**, **GitHub Actions**, **GHCR**, **Cloudflare DNS/CDN** | Contenedores *stateless*, balanceo `least_conn`, pipelines `ci.yml`/`cd.yml` y seguridad perimetral. |
+
+> **Aclaración clave ante el jurado (Local vs. Producción):** *"En local corremos React 19 + Vite 8 + Node.js/Express + WebSocket + Swagger UI + Caché LRU/TTL en memoria + persistencia JSON/localStorage para garantizar una demo autónoma; mientras que PostgreSQL 16, PgBouncer, Redis 7 y Nginx ya están configurados en `database/`, `infra/` y `docker-compose.yml` para producción horizontal."*
+
+---
+
 ## 2. Guion de Demostración en Vivo (4 Minutos Exactos)
 
 ### Preparación previa (antes de pasar al frente)
