@@ -78,6 +78,13 @@ export const Footer: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-2 shrink-0">
             <button
               onClick={() => setShowArchitectureModal(true)}
+              className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-400/40 rounded-md transition-colors font-semibold"
+            >
+              <CheckCircle2 className="w-3 h-3 text-amber-400" />
+              <span>Sprint 2 · Swagger &amp; 2,000 VUs</span>
+            </button>
+            <button
+              onClick={() => setShowArchitectureModal(true)}
               className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-300 border border-slate-700 rounded-md transition-colors"
             >
               <Layers className="w-3 h-3 text-amber-400" />
