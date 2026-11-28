@@ -145,8 +145,9 @@ export async function createAppServer(options?: {
 async function startServer() {
   const { server, wss } = await createAppServer({ attachFrontend: true });
   server.listen(PORT, '0.0.0.0', () => {
-    console.log(`TrabajaYa server listening on http://0.0.0.0:${PORT}`);
-    console.log(`Swagger UI / OpenAPI 3.0 available at http://0.0.0.0:${PORT}/api-docs`);
+    console.log(`TrabajaYa Perú listo en:      http://localhost:${PORT}`);
+    console.log(`Swagger UI (OpenAPI 3.0.3):   http://localhost:${PORT}/api-docs`);
+    console.log(`Especificación OpenAPI JSON:  http://localhost:${PORT}/api/openapi.json`);
   });
 
   const gracefulShutdown = (signal: string) => {

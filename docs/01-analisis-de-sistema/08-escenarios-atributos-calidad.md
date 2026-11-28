@@ -36,12 +36,12 @@
 | :--- | :--- |
 | **Atributo de calidad** | Escalabilidad (`AC03`) |
 | **Fuente** | Campaña nacional o evento climático que multiplica ×6 las solicitudes simultáneas de gasfitería/electricidad |
-| **Estímulo** | Incremento súbito de `50` a `120–300` usuarios concurrentes enviando consultas y solicitudes. |
+| **Estímulo** | Incremento progresivo de `10` hasta **`2,000` usuarios virtuales concurrentes** enviando consultas de catálogo, pagos y cotizaciones Escrow. |
 | **Condición** | Frontend con code splitting (`React.lazy` + `manualChunks`) + CDN Cloudflare + Nginx `least_conn` sobre múltiples réplicas Node.js + PgBouncer + PostgreSQL Primary/Replicas + Redis. |
 | **Respuesta esperada** | El frontend difiere `> 382 kB` de vistas secundarias/admin, el balanceador distribuye tráfico HTTP/WSS y PostgreSQL protege `turnosLibres` con `sp_reservar_turno_atomico` (`FOR UPDATE`). |
-| **Medida** | Soportar picos sin superar `p95 < 500 ms` ni tasa de error `> 2%`, con `0` dobles reservas simultáneas. |
-| **Verificación** | `npm run build` (`374–588 ms`), `tests/load/stress-and-spike.k6.js`, `npm run test:load` (`120 VUs` → `3,891.9 RPS`, `0%` error) y `database/02_indexes_and_scalability.sql`. |
-| **Estado** | **Aprobado.** |
+| **Medida** | Soportar picos hasta 2,000 VUs sin superar `p95 < 500 ms` ni tasa de error `> 2%`, con `0` dobles reservas simultáneas. |
+| **Verificación** | `npm run build` (`554 ms`), `tests/load/stress-2000vu.k6.js`, `npm run test:load` (**`2,000 VUs` → `7,961.2 RPS`, `p95 = 279.10 ms`, `0.29%` error**, evidencia en `docs/evidencias/load-2000vu-results.json`) y `database/02_indexes_and_scalability.sql`. |
+| **Estado** | **Aprobado y verificado cuantitativamente.** |
 
 ---
 
@@ -55,7 +55,7 @@
 | **Condición** | Peticiones directas HTTP/WS o navegación manual en la SPA. |
 | **Respuesta esperada** | El backend retorna `401 Unauthorized` en chat a `GUEST`, aísla conversaciones por rol, oculta `CULQI_SECRET_KEY` del cliente, aplica Rate Limiting `429` y bloquea medios privados a terceros (`canViewIdentityMedia`). |
 | **Medida** | `100%` de accesos no autorizados bloqueados; `0` secretos en respuestas públicas o bundle `dist/`. |
-| **Verificación** | Pruebas unitarias (`domain.businessRules.test.ts`), integración (`IT-02`, `IT-05`, `IT-06` en `server.api.test.ts`) y E2E (`E2E-02` en `trabajaya.e2e.spec.ts`). |
+| **Verificación** | Pruebas unitarias Jest (`domain.businessRules.test.ts`, `server.useCases.test.ts`), integración Jest (`IT-04`, `IT-05`, `IT-07`, `IT-08`, `IT-12` Rate Limit `429`), colección Postman y E2E (`E2E-02` en `trabajaya.e2e.spec.ts`). |
 | **Estado** | **Aprobado y verificado (con remediación `GAP-01` JWT/argon2 planificada para despliegue productivo).** |
 
 ---
@@ -67,8 +67,8 @@
 | **Atributo de calidad** | Mantenibilidad (`AC05`) |
 | **Fuente** | Equipo de ingeniería |
 | **Estímulo** | Incorporar un nuevo oficio, ajustar el porcentaje de garantía Escrow o reemplazar la caché en memoria por Redis distribuido. |
-| **Condición** | Ciclo de evolución bajo metodología SDD (`docs/sdd/`). |
-| **Respuesta esperada** | Los cambios se realizan de forma localizada en `src/types/index.ts`, `src/domain/businessRules.ts` o implementando el puerto `CacheStore` sin alterar los controladores ni romper contratos. |
-| **Medida** | `0` errores TypeScript (`tsc --noEmit`), `36/36` pruebas unitarias/integración y `6/6` E2E en verde automáticamente en GitHub Actions (`ci.yml`). |
-| **Verificación** | Ejecución continua de `npm run lint`, `npm test`, `npm run test:e2e` y `npm run build` en CI/CD. |
+| **Condición** | Ciclo de evolución bajo Clean Architecture (`server/domain`, `application`, `infrastructure`, `presentation`) y metodología SDD (`docs/sdd/`). |
+| **Respuesta esperada** | Los cambios se realizan de forma localizada en `src/types/index.ts`, `src/domain/businessRules.ts` o implementando el puerto `CacheStore` sin alterar los controladores ni romper contratos OpenAPI 3.0.3. |
+| **Medida** | `0` errores TypeScript (`tsc --noEmit`), **`44/44` pruebas Jest (`96.53%` cobertura)** y `6/6` E2E en verde automáticamente en GitHub Actions (`ci.yml`). |
+| **Verificación** | Ejecución continua de `npm run lint`, `npm run test:coverage`, `npm run test:load`, `npm run test:e2e` y `npm run build` en CI/CD. |
 | **Estado** | **Aprobado y verificado.** |

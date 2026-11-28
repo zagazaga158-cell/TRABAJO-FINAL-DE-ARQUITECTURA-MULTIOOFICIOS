@@ -25,7 +25,7 @@ La plataforma resuelve las principales brechas del mercado peruano —informalid
 4. **Tablero de Imprevistos del Hogar (`S/ 5.00`)** con subasta competitiva de cotizaciones y adjudicación automática hacia órdenes Escrow.
 5. **Modelo Justo de Contratación (`S/ 0.00` en solicitud) + Custodia Fiduciaria (Escrow con Garantía del 10%) + Pasarela Culqi Perú (`PEN`)** y despacho automático en 3 canales (Chat WebSocket + Correo SMTP/Webhook + WhatsApp Cloud API/Webhook) con geolocalización GPS.
 
-Todas las propiedades arquitectónicas fueron validadas mediante evidencia real y reproducible: **`36/36`** pruebas unitarias e integración (Vitest + Supertest), **`6/6`** pruebas End-to-End en Chromium (Playwright), **`0`** errores TypeScript (`tsc --noEmit`), build dividido con code splitting en **`374 ms`** (diferiendo `> 382 kB` crudos), motor de caché LRU/TTL con **`99.87%` de Cache Hit Ratio** y pruebas de carga alcanzando **`3,891.9 req/s`** con **`p95 = 48.03 ms`** y **`0%` de fallos HTTP**.
+Todas las propiedades arquitectónicas fueron validadas mediante evidencia real y reproducible: **`44/44`** pruebas unitarias e integración con **Jest + Supertest** (**`96.53%`** cobertura de sentencias/líneas y **`97.18%`** en funciones), **`6/6`** pruebas End-to-End en Chromium (Playwright), **`0`** errores TypeScript (`tsc --noEmit`), documentación viva **OpenAPI 3.0.3 / Swagger UI (`/api-docs`)**, colección **Postman**, build dividido con code splitting en **`554 ms`** (diferiendo `> 382 kB` crudos), motor de caché LRU/TTL con **`99.98%` de Cache Hit Ratio** y simulación progresiva de carga hasta **2,000 usuarios virtuales concurrentes** alcanzando **`7,961.2 req/s`**, **`p95 = 279.10 ms`** y **`0.29%`** de error (`0%` error y `p95 = 48.17 ms` a 100 VUs).
 
 ---
 
@@ -74,10 +74,11 @@ Este proyecto aplica prácticas modernas de ingeniería de software de extremo a
 | Nivel de Prueba | Herramienta | Suite / Evidencia | Resultado Medido |
 | :--- | :--- | :--- | :---: |
 | **Estático (Tipos)** | TypeScript (`tsc --noEmit`) | Todo `src/`, `server/`, `server.ts`, `tests/` | **0 errores** ✅ |
-| **Unitarias** | Vitest 5.1.2 | 5 suites (`businessRules`, `peruUbigeo`, `whatsappSolicitud`, `initialData`, `cache`) | **27/27 aprobadas** ✅ |
-| **Integración** | Supertest + `ws` | `server.api.test.ts` (Health, Culqi, Chat `401`/idempotencia, Dispatch, WS `/ws/chat`, Caché/ETag `304`) | **9/9 aprobadas** ✅ |
+| **Unitarias** | **Jest** (`jest.config.cjs`) | 6 suites (`businessRules`, `server.useCases`, `peruUbigeo`, `whatsappSolicitud`, `initialData`, `cache`) | **32/32 aprobadas** ✅ |
+| **Integración** | **Jest** + Supertest + `ws` | `server.api.test.ts` (`IT-01` a `IT-12`: Health, **OpenAPI/Swagger**, Catálogo/Escrow, Culqi, Chat `401`/idempotencia, Dispatch, WS `/ws/chat`, Caché/ETag `304`, Rate Limit `429`) | **12/12 aprobadas** ✅ |
+| **Cobertura de Código** | **Jest V8 Coverage** (`npm run test:coverage`) | Reporte HTML/LCOV en `coverage/` | **`96.53%` Lines/Stmts · `97.18%` Funcs** ✅ |
 | **End-to-End** | Playwright + Chromium | `trabajaya.e2e.spec.ts` (`E2E-01` a `E2E-06`, desktop + móvil `375×812`) | **6/6 aprobadas (13.5 s)** ✅ |
-| **Carga y Rendimiento** | k6 + Benchmark Node (`npm run test:load`) | 5,180 solicitudes (Smoke 5 VUs, Load 50 VUs con Culqi POST, Spike 120 VUs) | **`3,891.9 RPS` · `p95 = 48.03–54.69 ms` · `0%` fallos** ✅ |
+| **Carga hasta 2,000 VUs** | k6 (`stress-2000vu.k6.js`) + Benchmark (`npm run test:load`) + Postman | 23,411 solicitudes progresivas (`10 → 100 → 500 → 1,000 → 1,500 → 2,000 VUs`) | **`7,961.2 RPS` · `p95 = 279.10 ms` @ 2,000 VUs · `99.98%` Cache Hit** ✅ |
 
 ### 2.4 UI/UX, Caché y Escalabilidad Full-Stack (Capítulos VII, VIII, IX, X y XI)
 - **UI/UX:** Design System (`Plus Jakarta Sans` + `JetBrains Mono`, Navy `#0d3b66` / Amber `#f4d06f` / Sky para `ADMIN`), evaluación de las 10 Heurísticas de Nielsen y auditoría WCAG 2.1 AA.
@@ -95,7 +96,7 @@ Este proyecto aplica prácticas modernas de ingeniería de software de extremo a
 
 1. **Alineamiento Problema–Arquitectura:** El modelo **Monolito Modular bajo Clean Architecture** resultó óptimo para **TrabajaYa Perú**, permitiendo modelar con claridad 9 módulos de negocio, garantizar las invariantes Escrow/RBAC y preparar una ruta de escalado horizontal sin la sobrecarga prematura de microservicios.
 2. **Valor Comprobado del Desarrollo Basado en SDD:** Formalizar la Constitución (`I1–I6`), los contratos REST/WS y los escenarios Gherkin permitió derivar pruebas automatizadas de alto valor —llegando incluso a detectar mediante `peruUbigeo.test.ts` el conteo exacto real de **1,878 distritos** en el código fuente.
-3. **Eficacia Medida de la Caché y Optimización de Carga:** La combinación de `React.lazy` + `manualChunks` en frontend y `LruTtlCache` + `ETag 304` en backend permitió lograr un build de `374 ms`, diferir más de `382 kB` de la carga inicial y alcanzar **`3,891.9 req/s`** con **`99.87%` de aciertos de caché** y **`p95 < 55 ms`**, superando en más de 4× la meta `RNF-01` (`250 ms`).
+3. **Eficacia Medida de la Caché y Escalabilidad hasta 2,000 VUs:** La combinación de `React.lazy` + `manualChunks` en frontend y `LruTtlCache` + `ETag 304` en backend permitió lograr un build de `554 ms`, diferir más de `382 kB` de la carga inicial y sostener una simulación progresiva hasta **2,000 usuarios virtuales concurrentes** alcanzando **`7,961.2 req/s`** con **`99.98%` de aciertos de caché**, **`p95 = 48.17 ms` a 100 VUs** y **`p95 = 279.10 ms` a 2,000 VUs** (`0.29%` error).
 4. **Madurez Operativa y Transparencia Técnica:** La documentación explícita de las brechas entre la persistencia demostrativa (`localStorage` + `.data/*.json`) y el despliegue productivo (`PostgreSQL 16 + PgBouncer + Redis + S3 + Auth JWT`) demuestra criterio arquitectónico realista y proporciona un plan ejecutable inmediato.
 
 ---

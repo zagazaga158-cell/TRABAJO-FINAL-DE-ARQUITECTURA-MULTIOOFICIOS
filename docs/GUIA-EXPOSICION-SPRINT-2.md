@@ -290,7 +290,7 @@ xychart-beta
 | **0:00 – 0:45** | Mostrar capas Clean Architecture | Explorador `server/` + `server.ts` | Separación real `domain/`, `application/`, `infrastructure/`, `presentation/`. |
 | **0:45 – 1:30** | Correr Jest + Cobertura | `npm run test:coverage` | **44/44 aprobadas**, **96.53%** cobertura y abrir `coverage/lcov-report/index.html`. |
 | **1:30 – 2:15** | Correr carga hasta 2,000 VUs | `npm run test:load` | Tabla real de `10` hasta `2,000 VUs`, **`7,961 RPS`**, `p95 = 279 ms`, `99.98%` Cache Hit. |
-| **2:15 – 4:00** | App funcional + Modal Sprint 2 + Swagger | `npm run dev` → `/`, Footer → *Clean Architecture*, y `/api-docs` | Probar en vivo `POST /api/escrow/quote` y `GET /api/services` (`MISS` → `HIT`) en Swagger UI. |
+| **2:15 – 4:00** | App funcional + Modal Sprint 2 + Swagger | `npm run dev` → `http://localhost:3000`, Footer → *Sprint 2 · Swagger & 2,000 VUs*, y `http://localhost:3000/api-docs` | Probar en vivo `POST /api/escrow/quote` y `GET /api/services` (`MISS` → `HIT`) en Swagger UI (**usar siempre `localhost`, no `0.0.0.0` en Windows**). |
 
 ---
 
