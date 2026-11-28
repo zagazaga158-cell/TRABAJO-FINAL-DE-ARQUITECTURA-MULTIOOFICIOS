@@ -63,6 +63,17 @@
 | **Pruebas y Carga** | **Jest** (+ cobertura **V8**), **Supertest**, **Playwright (Chromium)**, **k6** | 44 pruebas unitarias/integración con `96.53%` cobertura, 6 E2E en navegador real y simulación progresiva hasta **2,000 VUs**. |
 | **DevOps e Infraestructura** | **Docker** (multi-stage), **Docker Compose**, **Nginx 1.27**, **GitHub Actions (CI/CD)**, **GHCR**, **Cloudflare DNS/CDN** | Contenedores *stateless*, balanceo `least_conn` (`infra/nginx.conf`), CI/CD automatizado (`ci.yml`, `cd.yml`) y zona DNS. |
 
+### 💻 Lenguajes de Programación y Especificación
+
+| Lenguaje | Extensiones | Rol en el Proyecto | Dónde se Usa |
+| :--- | :---: | :--- | :--- |
+| **TypeScript** *(Principal)* | `.ts`, `.tsx` | **Lenguaje Full-Stack principal:** Frontend (React 19), Backend Clean Architecture (Node.js/Express/WS) y pruebas (Jest, Playwright, benchmark 2,000 VUs). | `src/`, `server/`, `server.ts`, `tests/unit/`, `tests/integration/`, `tests/e2e/` |
+| **JavaScript** | `.js`, `.cjs` | Scripts oficiales de pruebas de carga **k6** y configuración/transformador de **Jest**. | `tests/load/*.k6.js`, `jest.config.cjs` |
+| **SQL / PL/pgSQL** | `.sql` | Esquema relacional PostgreSQL 16, índices (parciales y GIN), particionamiento, vista materializada y procedimiento `FOR UPDATE`. | `database/01_schema.sql`, `02_indexes_and_scalability.sql`, `03_seed_data.sql` |
+| **HTML5 / CSS3** | `.html`, `.css` | Punto de entrada web y estilos base con **Tailwind CSS v4**. | `index.html`, `src/index.css` |
+| **YAML / JSON** | `.yml`, `.json` | Pipelines CI/CD (GitHub Actions), Docker Compose, contratos **OpenAPI 3.0.3**, colección **Postman** y evidencias de carga. | `.github/workflows/`, `docker-compose.yml`, `docs/openapi.json`, `docs/postman/` |
+| **Markdown + Gherkin / Mermaid** | `.md` | Especificaciones **SDD** (`Given/When/Then`), diagramas arquitectónicos y documentación técnica. | `docs/sdd/`, `docs/trabajo-final/`, `README.md` |
+
 > [!TIP]
 > **Qué decir si el profesor pregunta qué corre en local vs. producción:**
 > *"En local ejecutamos React 19 + Vite 8 + Node.js/Express + WebSocket + Swagger UI + Caché LRU/TTL en memoria + persistencia JSON/localStorage para facilitar la demo sin dependencias externas; y en `database/`, `infra/` y `docker-compose.yml` ya están aprovisionados PostgreSQL 16, PgBouncer, Redis 7 y Nginx para el despliegue horizontal productivo."*
