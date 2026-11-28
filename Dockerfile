@@ -26,6 +26,10 @@ RUN npm ci --omit=dev --legacy-peer-deps && npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server.ts ./server.ts
+COPY --from=builder /app/server ./server
+COPY --from=builder /app/src/domain ./src/domain
+COPY --from=builder /app/src/data ./src/data
+COPY --from=builder /app/src/types ./src/types
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY --from=builder /app/node_modules/tsx ./node_modules/tsx
 

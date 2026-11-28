@@ -1,9 +1,9 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { afterEach, describe, expect, it, jest } from '@jest/globals';
 import { LruTtlCache } from '../../server/cache';
 
 describe('Capa de Caché — LruTtlCache (TTL, LRU, ETag e Invalidación por Prefijo)', () => {
   afterEach(() => {
-    vi.useRealTimers();
+    jest.useRealTimers();
   });
 
   it('registra MISS inicial, luego HIT con ETag estable y calcula hitRatio', () => {
@@ -24,14 +24,14 @@ describe('Capa de Caché — LruTtlCache (TTL, LRU, ETag e Invalidación por Pre
   });
 
   it('expira claves automáticamente al vencer su TTL', () => {
-    vi.useFakeTimers();
+    jest.useFakeTimers();
     const cache = new LruTtlCache(20);
     cache.set('chat:conv:ADMIN', { count: 2 }, 5_000);
 
-    vi.advanceTimersByTime(4_999);
+    jest.advanceTimersByTime(4_999);
     expect(cache.get('chat:conv:ADMIN')).not.toBeNull();
 
-    vi.advanceTimersByTime(2);
+    jest.advanceTimersByTime(2);
     expect(cache.get('chat:conv:ADMIN')).toBeNull();
   });
 
@@ -49,7 +49,7 @@ describe('Capa de Caché — LruTtlCache (TTL, LRU, ETag e Invalidación por Pre
     expect(cache.stats().evictions).toBe(1);
   });
 
-  it('invalida claves selectivamente por prefijo', () => {
+  it('invalida claves selectivamente por prefijo y soporta del/clear', () => {
     const cache = new LruTtlCache(20);
     cache.set('chat:conv:ADMIN', [1], 60_000);
     cache.set('chat:conv:USR-018', [2], 60_000);
@@ -59,5 +59,10 @@ describe('Capa de Caché — LruTtlCache (TTL, LRU, ETag e Invalidación por Pre
     expect(removed).toBe(2);
     expect(cache.get('chat:conv:ADMIN')).toBeNull();
     expect(cache.get('culqi:config')).not.toBeNull();
+
+    expect(cache.del('culqi:config')).toBe(true);
+    expect(cache.del('clave-inexistente')).toBe(false);
+    cache.clear();
+    expect(cache.stats().size).toBe(0);
   });
 });

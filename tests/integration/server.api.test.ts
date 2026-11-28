@@ -4,10 +4,10 @@ import path from 'path';
 import type http from 'http';
 import request from 'supertest';
 import { WebSocket, type WebSocketServer } from 'ws';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 import { createAppServer } from '../../server';
 
-describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)', () => {
+describe('Pruebas de Integración — Backend Express Clean Architecture + OpenAPI + WebSocket', () => {
   let tmpDataDir: string;
   let app: any;
   let server: http.Server;
@@ -17,13 +17,13 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
 
   beforeAll(async () => {
     tmpDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'trabajaya-test-'));
-    // Garantizar modo sandbox en pruebas eliminando llaves externas si existieran
     delete process.env.CULQI_PUBLIC_KEY;
     delete process.env.CULQI_SECRET_KEY;
     delete process.env.SMTP_USER;
     delete process.env.SMTP_PASS;
     delete process.env.WHATSAPP_PHONE_NUMBER_ID;
     delete process.env.WHATSAPP_ACCESS_TOKEN;
+    process.env.RATE_LIMIT_MAX_REQ = '600';
 
     const instance = await createAppServer({ dataDir: tmpDataDir, attachFrontend: false });
     app = instance.app;
@@ -46,14 +46,60 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     fs.rmSync(tmpDataDir, { recursive: true, force: true });
   });
 
-  it('GET /api/health responde 200 OK con estado operativo', async () => {
+  it('IT-01: GET /api/health responde 200 OK con arquitectura Clean Architecture', async () => {
     const res = await request(app).get('/api/health');
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
     expect(typeof res.body.conversations).toBe('number');
+    expect(res.body.architecture).toContain('Clean Architecture');
   });
 
-  it('GET /api/payments/culqi/config retorna modo sandbox y nunca expone secretKey', async () => {
+  it('IT-02: OpenAPI 3.0 (/api/openapi.json) y Swagger UI (/api-docs/) responden correctamente', async () => {
+    const specRes = await request(app).get('/api/openapi.json');
+    expect(specRes.status).toBe(200);
+    expect(specRes.body.openapi).toBe('3.0.3');
+    expect(specRes.body.paths['/api/health']).toBeDefined();
+    expect(specRes.body.paths['/api/services']).toBeDefined();
+    expect(specRes.body.paths['/api/escrow/quote']).toBeDefined();
+    expect(specRes.body.paths['/api/payments/culqi/charge']).toBeDefined();
+    expect(specRes.body.paths['/api/chat/messages']).toBeDefined();
+
+    const uiRes = await request(app).get('/api-docs/');
+    expect(uiRes.status).toBe(200);
+    expect(uiRes.text).toContain('swagger-ui');
+    expect(uiRes.text).toContain('TrabajaYa Perú — Swagger / OpenAPI 3.0');
+  });
+
+  it('IT-03: GET /api/services, GET /api/services/:id y POST /api/escrow/quote validan catálogo y Escrow', async () => {
+    const listRes = await request(app).get('/api/services?oficio=GASFITERIA');
+    expect(listRes.status).toBe(200);
+    expect(listRes.headers['x-cache']).toBe('MISS');
+    expect(listRes.body.ok).toBe(true);
+    expect(listRes.body.total).toBeGreaterThanOrEqual(1);
+
+    const listHit = await request(app).get('/api/services?oficio=GASFITERIA');
+    expect(listHit.headers['x-cache']).toBe('HIT');
+
+    const firstId = listRes.body.services[0].id;
+    const itemRes = await request(app).get(`/api/services/${firstId}`);
+    expect(itemRes.status).toBe(200);
+    expect(itemRes.body.service.id).toBe(firstId);
+
+    const missing = await request(app).get('/api/services/SRV-INEXISTENTE');
+    expect(missing.status).toBe(404);
+
+    const quoteOk = await request(app)
+      .post('/api/escrow/quote')
+      .send({ precioBase: 100, cantidadTurnos: 2 });
+    expect(quoteOk.status).toBe(200);
+    expect(quoteOk.body.quote.tarifaClienteUnitaria).toBe(110);
+    expect(quoteOk.body.quote.totalConIgv).toBe(259.6);
+
+    const quoteBad = await request(app).post('/api/escrow/quote').send({ precioBase: 5 });
+    expect(quoteBad.status).toBe(400);
+  });
+
+  it('IT-04: GET /api/payments/culqi/config retorna modo sandbox y nunca expone secretKey', async () => {
     const res = await request(app).get('/api/payments/culqi/config');
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({
@@ -66,7 +112,7 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(res.body.secretKey).toBeUndefined();
   });
 
-  it('POST /api/payments/culqi/charge valida errores 400 (token, email y monto mínimo 100 céntimos)', async () => {
+  it('IT-05: POST /api/payments/culqi/charge valida errores 400 (token, email y monto mínimo)', async () => {
     const sinToken = await request(app)
       .post('/api/payments/culqi/charge')
       .send({ email: 'cliente@gmail.com', amountCentimos: 500 });
@@ -83,7 +129,7 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(montoBajo.status).toBe(400);
   });
 
-  it('POST /api/payments/culqi/charge procesa cobro sandbox S/ 5.00 y persiste en ledger', async () => {
+  it('IT-06: POST /api/payments/culqi/charge procesa cobro sandbox S/ 5.00 y persiste en ledger', async () => {
     const charge = await request(app)
       .post('/api/payments/culqi/charge')
       .send({
@@ -114,7 +160,7 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(ledger.body.transactions.some((t: any) => t.id === charge.body.transaction.id)).toBe(true);
   });
 
-  it('POST /api/chat/conversations/ensure + POST /api/chat/messages aplica RBAC 401 a GUEST e idempotencia', async () => {
+  it('IT-07: POST /api/chat/conversations/ensure + /messages aplica RBAC 401 a GUEST e idempotencia', async () => {
     const convId = 'ORD:PED-TEST-001:986864822';
     const ensureRes = await request(app)
       .post('/api/chat/conversations/ensure')
@@ -134,7 +180,6 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(ensureRes.status).toBe(200);
     expect(ensureRes.body.conversation.messages).toHaveLength(1);
 
-    // Bloqueo 401 para visitante no registrado (Invariante I4)
     const guestSend = await request(app)
       .post('/api/chat/messages')
       .send({
@@ -145,7 +190,6 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
       });
     expect(guestSend.status).toBe(401);
 
-    // Envío válido + prueba de idempotencia con el mismo messageId
     const msgPayload = {
       conversationId: convId,
       messageId: 'msg-idemp-12345',
@@ -160,10 +204,10 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
 
     const duplicate = await request(app).post('/api/chat/messages').send(msgPayload);
     expect(duplicate.status).toBe(200);
-    expect(duplicate.body.conversation.messages).toHaveLength(2); // Sin duplicar
+    expect(duplicate.body.conversation.messages).toHaveLength(2);
   });
 
-  it('GET /api/chat/conversations aísla hilos por rol (GUEST = [], USUARIO = propios, ADMIN = todos)', async () => {
+  it('IT-08: GET /api/chat/conversations aísla hilos por rol (GUEST = [], USUARIO = propios, ADMIN = todos)', async () => {
     const guestRes = await request(app).get('/api/chat/conversations?role=GUEST');
     expect(guestRes.status).toBe(200);
     expect(guestRes.body.conversations).toEqual([]);
@@ -181,7 +225,7 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(adminRes.body.conversations.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('POST /api/notifications/dispatch-order despacha en Chat in-app, encola Email/WA y audita en dispatch-log.json', async () => {
+  it('IT-09: POST /api/notifications/dispatch-order despacha en Chat in-app, encola Email/WA y audita', async () => {
     const bad = await request(app).post('/api/notifications/dispatch-order').send({ ordenId: '' });
     expect(bad.status).toBe(400);
 
@@ -213,20 +257,18 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(ok.body.emailStatus.queued).toBe(true);
     expect(ok.body.whatsappStatus.queued).toBe(true);
 
-    // Verifica que la orden GUEST quedó etiquetada como 'Anónimo (No registrado)'
     const adminConvs = await request(app).get('/api/chat/conversations?role=ADMIN');
     const createdConv = adminConvs.body.conversations.find((c: any) => c.ordenId === 'PED-2026-7777');
     expect(createdConv).toBeDefined();
     expect(createdConv.clienteNombre).toBe('Anónimo (No registrado)');
 
-    // Verifica persistencia en dispatch-log.json
     const dispatchLog = JSON.parse(
       fs.readFileSync(path.join(tmpDataDir, 'dispatch-log.json'), 'utf-8')
     );
     expect(dispatchLog.some((d: any) => d.ordenId === 'PED-2026-7777')).toBe(true);
   });
 
-  it('WebSocket /ws/chat emite chat:connected y entrega en tiempo real eventos chat:message', async () => {
+  it('IT-10: WebSocket /ws/chat emite chat:connected y entrega en vivo eventos chat:message', async () => {
     const receivedEvents: any[] = [];
     const ws = new WebSocket(wsUrl);
 
@@ -241,7 +283,6 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
 
     expect(receivedEvents[0].type).toBe('chat:connected');
 
-    // Dispara un mensaje vía HTTP y comprueba recepción en vivo por WS
     const broadcastPromise = new Promise<any>(resolve => {
       ws.on('message', raw => {
         const evt = JSON.parse(raw.toString());
@@ -270,20 +311,17 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     ws.close();
   });
 
-  it('Caché HTTP + ETag (304 Not Modified) + Invalidación automática + GET /api/cache/stats', async () => {
-    // 1. Segunda lectura de /api/payments/culqi/config debe ser HIT con ETag válido
+  it('IT-11: Caché HTTP + ETag (304 Not Modified) + Invalidación automática + GET /api/cache/stats', async () => {
     const cfgHit = await request(app).get('/api/payments/culqi/config');
     expect(cfgHit.status).toBe(200);
     expect(cfgHit.headers['x-cache']).toBe('HIT');
     expect(cfgHit.headers['etag']).toBeDefined();
 
-    // 2. Petición condicional con If-None-Match -> 304 Not Modified
     const notMod = await request(app)
       .get('/api/payments/culqi/config')
       .set('If-None-Match', cfgHit.headers['etag']);
     expect(notMod.status).toBe(304);
 
-    // 3. Invalidación de culqi:transactions tras un nuevo cargo
     const txHit = await request(app).get('/api/payments/culqi/transactions');
     expect(txHit.headers['x-cache']).toBe('HIT');
 
@@ -299,11 +337,31 @@ describe('Pruebas de Integración — Backend Express API + WebSocket (/ws/chat)
     expect(txAfterWrite.headers['x-cache']).toBe('MISS');
     expect(txAfterWrite.body.transactions.some((t: any) => t.tokenId === 'tkn_sandbox_cache_inv')).toBe(true);
 
-    // 4. Observabilidad en /api/cache/stats
     const statsRes = await request(app).get('/api/cache/stats');
     expect(statsRes.status).toBe(200);
     expect(statsRes.body.ok).toBe(true);
     expect(statsRes.body.stats.hits).toBeGreaterThan(0);
     expect(statsRes.body.stats.invalidations).toBeGreaterThan(0);
+  });
+
+  it('IT-12: Seguridad (EQ-04) — Rate Limiting L7 bloquea con HTTP 429 al exceder límite', async () => {
+    const rlDir = fs.mkdtempSync(path.join(os.tmpdir(), 'trabajaya-rl-'));
+    const prevLimit = process.env.RATE_LIMIT_MAX_REQ;
+    process.env.RATE_LIMIT_MAX_REQ = '3';
+    const rlInstance = await createAppServer({ dataDir: rlDir, attachFrontend: false });
+
+    try {
+      expect((await request(rlInstance.app).get('/api/payments/culqi/config')).status).toBe(200);
+      expect((await request(rlInstance.app).get('/api/payments/culqi/config')).status).toBe(200);
+      expect((await request(rlInstance.app).get('/api/payments/culqi/config')).status).toBe(200);
+
+      const blocked = await request(rlInstance.app).get('/api/payments/culqi/config');
+      expect(blocked.status).toBe(429);
+      expect(blocked.body.ok).toBe(false);
+    } finally {
+      process.env.RATE_LIMIT_MAX_REQ = prevLimit;
+      await new Promise<void>(resolve => rlInstance.wss.close(() => resolve()));
+      fs.rmSync(rlDir, { recursive: true, force: true });
+    }
   });
 });

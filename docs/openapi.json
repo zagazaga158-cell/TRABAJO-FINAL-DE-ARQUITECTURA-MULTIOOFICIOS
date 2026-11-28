@@ -1,0 +1,1339 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TrabajaYa Perú (conectaoficios) — API REST",
+    "version": "2.0.0",
+    "description": "API REST del Monolito Modular en Capas (Clean Architecture) de TrabajaYa Perú. Incluye Catálogo Nacional Multioficios, Cotizador Escrow (garantía 10% + IGV 18%), Pasarela Culqi Perú (API v2 / Sandbox), Chat Directo con RBAC + WebSocket (/ws/chat), Despacho Automático Multicanal (3 canales) y Observabilidad de Caché LRU/TTL/ETag.",
+    "contact": {
+      "name": "Equipo de Arquitectura de Software — TrabajaYa Perú",
+      "email": "admin@conectaoficios.pe"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor Local de Desarrollo"
+    },
+    {
+      "url": "https://staging.trabajaya.pe",
+      "description": "Ambiente Staging"
+    },
+    {
+      "url": "https://trabajaya.pe",
+      "description": "Producción Nacional (Cloudflare + Nginx)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Health & Cache",
+      "description": "Monitoreo de disponibilidad y observabilidad de caché"
+    },
+    {
+      "name": "Catálogo & Escrow",
+      "description": "Servicios aprobados y cálculo financiero Escrow/IGV"
+    },
+    {
+      "name": "Pagos Culqi",
+      "description": "Configuración pública, cobros Culqi v2/Sandbox y ledger"
+    },
+    {
+      "name": "Chat Directo",
+      "description": "Conversaciones y mensajería en vivo con control RBAC"
+    },
+    {
+      "name": "Notificaciones",
+      "description": "Despacho automático en 3 canales (Chat, SMTP, WhatsApp)"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "tags": [
+          "Health & Cache"
+        ],
+        "summary": "Verificar estado operativo del servidor",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Servicio operativo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cache/stats": {
+      "get": {
+        "tags": [
+          "Health & Cache"
+        ],
+        "summary": "Obtener métricas en vivo de la capa de caché (CacheStore)",
+        "operationId": "getCacheStats",
+        "responses": {
+          "200": {
+            "description": "Estadísticas LRU/TTL de caché (hits, misses, hitRatio, invalidations, evictions)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CacheStatsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/services": {
+      "get": {
+        "tags": [
+          "Catálogo & Escrow"
+        ],
+        "summary": "Listar servicios aprobados ordenados por prioridad comercial (PRO > DESTACADO > BASICO)",
+        "operationId": "listApprovedServices",
+        "parameters": [
+          {
+            "name": "oficio",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Ej. GASFITERIA, ELECTRICIDAD"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Ej. Lima, Ayacucho, Arequipa"
+          },
+          {
+            "name": "provincia",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Ej. Lima, Huamanga"
+          },
+          {
+            "name": "distrito",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Ej. Miraflores, Ayacucho"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Texto de búsqueda libre"
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ETag para revalidación 304"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de servicios aprobados con cabeceras X-Cache y ETag",
+            "headers": {
+              "X-Cache": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "HIT",
+                    "MISS"
+                  ]
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogListResponse"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified — el cliente conserva versión vigente según ETag"
+          }
+        }
+      }
+    },
+    "/api/services/{id}": {
+      "get": {
+        "tags": [
+          "Catálogo & Escrow"
+        ],
+        "summary": "Obtener detalle de un servicio aprobado por ID",
+        "operationId": "getServiceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "SRV-001"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle del servicio aprobado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogItemResponse"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "404": {
+            "description": "Servicio no encontrado o aún no aprobado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/escrow/quote": {
+      "post": {
+        "tags": [
+          "Catálogo & Escrow"
+        ],
+        "summary": "Calcular cotización autoritativa Escrow (Garantía 10% + IGV 18%)",
+        "operationId": "quoteEscrow",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EscrowQuoteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Desglose financiero calculado con invariantes de dominio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscrowQuoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros fuera de rango (precioBase < 20 o cantidadTurnos inválida)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payments/culqi/config": {
+      "get": {
+        "tags": [
+          "Pagos Culqi"
+        ],
+        "summary": "Obtener configuración pública de Culqi (nunca expone secretKey)",
+        "operationId": "getCulqiConfig",
+        "parameters": [
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Configuración pública (Cache-Aside 60s + ETag)",
+            "headers": {
+              "X-Cache": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "HIT",
+                    "MISS"
+                  ]
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CulqiConfigResponse"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          }
+        }
+      }
+    },
+    "/api/payments/culqi/transactions": {
+      "get": {
+        "tags": [
+          "Pagos Culqi"
+        ],
+        "summary": "Listar libro histórico (ledger) de transacciones Culqi",
+        "operationId": "listCulqiTransactions",
+        "parameters": [
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de hasta 500 transacciones recientes (Cache-Aside 30s)",
+            "headers": {
+              "X-Cache": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "HIT",
+                    "MISS"
+                  ]
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CulqiTransactionsResponse"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          }
+        }
+      }
+    },
+    "/api/payments/culqi/charge": {
+      "post": {
+        "tags": [
+          "Pagos Culqi"
+        ],
+        "summary": "Procesar cargo Culqi (API v2 o Sandbox) e invalidar caché de transacciones",
+        "operationId": "createCulqiCharge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CulqiChargeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cargo aprobado y registrado en el ledger",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CulqiChargeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validación fallida (token, email o monto < 100 céntimos) o rechazo de Culqi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit excedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Error de conectividad con api.culqi.com",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/conversations": {
+      "get": {
+        "tags": [
+          "Chat Directo"
+        ],
+        "summary": "Listar conversaciones visibles según rol RBAC (ADMIN, USUARIO, GUEST)",
+        "operationId": "listConversations",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ADMIN",
+                "USUARIO",
+                "GUEST"
+              ],
+              "default": "USUARIO"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dni",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "telefono",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conversaciones autorizadas (Cache-Aside 15s)",
+            "headers": {
+              "X-Cache": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "HIT",
+                    "MISS"
+                  ]
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationsListResponse"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          }
+        }
+      }
+    },
+    "/api/chat/conversations/ensure": {
+      "post": {
+        "tags": [
+          "Chat Directo"
+        ],
+        "summary": "Crear o enriquecer una conversación e invalidar caché de hilos",
+        "operationId": "ensureConversation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnsureConversationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Conversación creada o actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationMutationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Falta conversationId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/messages": {
+      "post": {
+        "tags": [
+          "Chat Directo"
+        ],
+        "summary": "Enviar mensaje con idempotencia (messageId), RBAC 401 a GUEST y broadcast WebSocket",
+        "operationId": "sendChatMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendChatMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mensaje persistido y difundido por WebSocket /ws/chat",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendChatMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Faltan conversationId o text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Visitante GUEST bloqueado (Invariante I4)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Conversación no encontrada o texto vacío",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/dispatch-order": {
+      "post": {
+        "tags": [
+          "Notificaciones"
+        ],
+        "summary": "Despacho automático en 3 canales (Chat In-App + SMTP/Webhook + WhatsApp Cloud API)",
+        "operationId": "dispatchOrderNotifications",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resultado consolidado del despacho multicanal y auditoría",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DispatchOrderResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ordenId o workers faltantes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "error"
+        ]
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "conversations": {
+            "type": "integer",
+            "example": 3
+          },
+          "architecture": {
+            "type": "string",
+            "example": "Clean Architecture — Monolito Modular en Capas"
+          }
+        }
+      },
+      "CacheStatsResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "backend": {
+            "type": "string",
+            "enum": [
+              "lru-memory",
+              "redis-adapter-ready"
+            ]
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "size": {
+                "type": "integer"
+              },
+              "maxEntries": {
+                "type": "integer"
+              },
+              "hits": {
+                "type": "integer"
+              },
+              "misses": {
+                "type": "integer"
+              },
+              "sets": {
+                "type": "integer"
+              },
+              "invalidations": {
+                "type": "integer"
+              },
+              "evictions": {
+                "type": "integer"
+              },
+              "hitRatio": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "CatalogListResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "total": {
+            "type": "integer",
+            "example": 15
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "CatalogItemResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "service": {
+            "type": "object"
+          }
+        }
+      },
+      "EscrowQuoteRequest": {
+        "type": "object",
+        "required": [
+          "precioBase"
+        ],
+        "properties": {
+          "precioBase": {
+            "type": "number",
+            "minimum": 20,
+            "example": 100
+          },
+          "cantidadTurnos": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 1,
+            "example": 2
+          }
+        }
+      },
+      "EscrowQuoteResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "quote": {
+            "type": "object",
+            "properties": {
+              "precioBaseUnitario": {
+                "type": "number",
+                "example": 100
+              },
+              "garantiaUnitaria": {
+                "type": "number",
+                "example": 10
+              },
+              "tarifaClienteUnitaria": {
+                "type": "number",
+                "example": 110
+              },
+              "cantidadTurnos": {
+                "type": "integer",
+                "example": 2
+              },
+              "subtotalServicio": {
+                "type": "number",
+                "example": 220
+              },
+              "garantiaTotal": {
+                "type": "number",
+                "example": 20
+              },
+              "igv18": {
+                "type": "number",
+                "example": 39.6
+              },
+              "totalConIgv": {
+                "type": "number",
+                "example": 259.6
+              },
+              "currency": {
+                "type": "string",
+                "example": "PEN"
+              }
+            }
+          }
+        }
+      },
+      "CulqiConfigResponse": {
+        "type": "object",
+        "properties": {
+          "configured": {
+            "type": "boolean",
+            "example": false
+          },
+          "publicKey": {
+            "type": "string",
+            "nullable": true,
+            "example": null
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "live",
+              "test",
+              "sandbox"
+            ],
+            "example": "sandbox"
+          },
+          "currency": {
+            "type": "string",
+            "example": "PEN"
+          },
+          "merchantName": {
+            "type": "string",
+            "example": "TrabajaYa Perú"
+          }
+        }
+      },
+      "CulqiTransaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "CLQ-1794975289100"
+          },
+          "chargeId": {
+            "type": "string",
+            "example": "chr_test_clq_a1b2c3d4"
+          },
+          "tokenId": {
+            "type": "string",
+            "example": "tkn_sandbox_demo01"
+          },
+          "authorizationCode": {
+            "type": "string",
+            "example": "AUT-CLQ-548291"
+          },
+          "referenceCode": {
+            "type": "string",
+            "example": "REF-CLQ-548291"
+          },
+          "amountCentimos": {
+            "type": "integer",
+            "example": 500
+          },
+          "amountSoles": {
+            "type": "number",
+            "example": 5
+          },
+          "currency": {
+            "type": "string",
+            "example": "PEN"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "TARJETA",
+              "YAPE_PLIN"
+            ]
+          },
+          "concepto": {
+            "type": "string",
+            "enum": [
+              "IMPREVISTO",
+              "ANUNCIO",
+              "ORDEN_CUSTODIA"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "live",
+              "test",
+              "sandbox"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PAID",
+              "FAILED"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "CulqiTransactionsResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CulqiTransaction"
+            }
+          }
+        }
+      },
+      "CulqiChargeRequest": {
+        "type": "object",
+        "required": [
+          "tokenId",
+          "email",
+          "amountCentimos"
+        ],
+        "properties": {
+          "tokenId": {
+            "type": "string",
+            "example": "tkn_sandbox_demo01"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "cliente@gmail.com"
+          },
+          "amountCentimos": {
+            "type": "integer",
+            "minimum": 100,
+            "example": 500
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 80,
+            "example": "Publicación de imprevisto urgente"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "TARJETA",
+              "YAPE_PLIN"
+            ],
+            "default": "TARJETA"
+          },
+          "concepto": {
+            "type": "string",
+            "enum": [
+              "IMPREVISTO",
+              "ANUNCIO",
+              "ORDEN_CUSTODIA"
+            ],
+            "default": "ANUNCIO"
+          },
+          "referenceId": {
+            "type": "string",
+            "example": "IMP-2026-01"
+          },
+          "customerName": {
+            "type": "string",
+            "example": "Dr. Alejandro Palomino"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Yape"
+          },
+          "last4": {
+            "type": "string",
+            "example": "4242"
+          }
+        }
+      },
+      "CulqiChargeResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/CulqiTransaction"
+          }
+        }
+      },
+      "ServerChatMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "senderId": {
+            "type": "string"
+          },
+          "senderName": {
+            "type": "string"
+          },
+          "senderRole": {
+            "type": "string",
+            "enum": [
+              "cliente",
+              "trabajador",
+              "sistema"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer"
+          }
+        }
+      },
+      "ServerConversation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ordenId": {
+            "type": "string"
+          },
+          "servicioTitulo": {
+            "type": "string"
+          },
+          "clienteId": {
+            "type": "string"
+          },
+          "clienteNombre": {
+            "type": "string"
+          },
+          "trabajadorId": {
+            "type": "string"
+          },
+          "trabajadorNombre": {
+            "type": "string"
+          },
+          "trabajadorTelefono": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "integer"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServerChatMessage"
+            }
+          }
+        }
+      },
+      "ConversationsListResponse": {
+        "type": "object",
+        "properties": {
+          "conversations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServerConversation"
+            }
+          }
+        }
+      },
+      "EnsureConversationRequest": {
+        "type": "object",
+        "required": [
+          "conversationId"
+        ],
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "example": "ORD:PED-2026-9045:986864822"
+          },
+          "ordenId": {
+            "type": "string",
+            "example": "PED-2026-9045"
+          },
+          "servicioTitulo": {
+            "type": "string",
+            "example": "Instalación de Pozos a Tierra"
+          },
+          "clienteId": {
+            "type": "string",
+            "example": "USR-018"
+          },
+          "clienteNombre": {
+            "type": "string",
+            "example": "Dr. Alejandro Palomino"
+          },
+          "trabajadorId": {
+            "type": "string",
+            "example": "USR-002"
+          },
+          "trabajadorNombre": {
+            "type": "string",
+            "example": "Téc. Wilber Mendoza"
+          },
+          "trabajadorTelefono": {
+            "type": "string",
+            "example": "986864822"
+          },
+          "initialSystemText": {
+            "type": "string"
+          }
+        }
+      },
+      "ConversationMutationResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "conversation": {
+            "$ref": "#/components/schemas/ServerConversation"
+          }
+        }
+      },
+      "SendChatMessageRequest": {
+        "type": "object",
+        "required": [
+          "conversationId",
+          "text"
+        ],
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "example": "ORD:PED-2026-9045:986864822"
+          },
+          "messageId": {
+            "type": "string",
+            "example": "msg-idemp-001"
+          },
+          "senderId": {
+            "type": "string",
+            "example": "USR-018"
+          },
+          "senderName": {
+            "type": "string",
+            "example": "Dr. Alejandro Palomino"
+          },
+          "senderRole": {
+            "type": "string",
+            "enum": [
+              "cliente",
+              "trabajador",
+              "sistema"
+            ],
+            "default": "cliente"
+          },
+          "text": {
+            "type": "string",
+            "example": "Confirmo llegada para las 10:00 hrs."
+          }
+        }
+      },
+      "SendChatMessageResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "$ref": "#/components/schemas/ServerChatMessage"
+          },
+          "conversation": {
+            "$ref": "#/components/schemas/ServerConversation"
+          }
+        }
+      },
+      "DispatchOrderRequest": {
+        "type": "object",
+        "required": [
+          "ordenId",
+          "workers"
+        ],
+        "properties": {
+          "ordenId": {
+            "type": "string",
+            "example": "PED-2026-7777"
+          },
+          "servicioTitulo": {
+            "type": "string",
+            "example": "Instalación de Pozo a Tierra"
+          },
+          "clienteId": {
+            "type": "string",
+            "example": "USR-018"
+          },
+          "clienteNombre": {
+            "type": "string",
+            "example": "Dr. Alejandro Palomino"
+          },
+          "clienteTelefono": {
+            "type": "string",
+            "example": "999888777"
+          },
+          "workers": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "usuarioId": {
+                  "type": "string"
+                },
+                "nombre": {
+                  "type": "string"
+                },
+                "dni": {
+                  "type": "string"
+                },
+                "telefono": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "titulo": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "whatsappMessage": {
+            "type": "string"
+          },
+          "emailSubject": {
+            "type": "string"
+          },
+          "emailBody": {
+            "type": "string"
+          }
+        }
+      },
+      "DispatchOrderResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "emailStatus": {
+            "type": "object",
+            "properties": {
+              "sent": {
+                "type": "boolean"
+              },
+              "queued": {
+                "type": "boolean"
+              },
+              "to": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          },
+          "whatsappStatus": {
+            "type": "object",
+            "properties": {
+              "sent": {
+                "type": "boolean"
+              },
+              "queued": {
+                "type": "boolean"
+              },
+              "to": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          },
+          "chatDelivered": {
+            "type": "boolean",
+            "example": true
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

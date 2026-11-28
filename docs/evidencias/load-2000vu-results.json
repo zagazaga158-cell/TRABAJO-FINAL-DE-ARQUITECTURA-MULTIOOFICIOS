@@ -1,0 +1,112 @@
+{
+  "executedAt": "2026-11-28T16:14:38.674Z",
+  "nodeVersion": "v24.18.0",
+  "platform": "win32",
+  "maxVirtualUsers": 2000,
+  "stages": [
+    {
+      "name": "1. Smoke (10 VUs)",
+      "virtualUsers": 10,
+      "totalRequests": 101,
+      "failedRequests": 0,
+      "errorRatePct": 0,
+      "durationSec": 0.08,
+      "rps": 1262.5,
+      "avgMs": 7.91,
+      "p50Ms": 3.49,
+      "p95Ms": 33.68,
+      "p99Ms": 34.21,
+      "maxMs": 34.37,
+      "rssMb": 77.9
+    },
+    {
+      "name": "2. Carga Base (100 VUs)",
+      "virtualUsers": 100,
+      "totalRequests": 810,
+      "failedRequests": 0,
+      "errorRatePct": 0,
+      "durationSec": 0.2,
+      "rps": 4050,
+      "avgMs": 23.69,
+      "p50Ms": 22.99,
+      "p95Ms": 48.17,
+      "p99Ms": 68.56,
+      "maxMs": 81.67,
+      "rssMb": 87
+    },
+    {
+      "name": "3. Carga Media (500 VUs)",
+      "virtualUsers": 500,
+      "totalRequests": 3050,
+      "failedRequests": 24,
+      "errorRatePct": 0.79,
+      "durationSec": 0.51,
+      "rps": 5980.4,
+      "avgMs": 78.38,
+      "p50Ms": 68.92,
+      "p95Ms": 138.65,
+      "p99Ms": 179.08,
+      "maxMs": 188.04,
+      "rssMb": 126.6
+    },
+    {
+      "name": "4. Alta Demanda (1,000 VUs)",
+      "virtualUsers": 1000,
+      "totalRequests": 5100,
+      "failedRequests": 24,
+      "errorRatePct": 0.47,
+      "durationSec": 0.71,
+      "rps": 7183.1,
+      "avgMs": 129.23,
+      "p50Ms": 130.35,
+      "p95Ms": 169.68,
+      "p99Ms": 192.5,
+      "maxMs": 194.69,
+      "rssMb": 153.6
+    },
+    {
+      "name": "5. Estrés Severo (1,500 VUs)",
+      "virtualUsers": 1500,
+      "totalRequests": 6150,
+      "failedRequests": 24,
+      "errorRatePct": 0.39,
+      "durationSec": 0.78,
+      "rps": 7884.6,
+      "avgMs": 171.99,
+      "p50Ms": 173.82,
+      "p95Ms": 216.72,
+      "p99Ms": 236.04,
+      "maxMs": 260.24,
+      "rssMb": 207.9
+    },
+    {
+      "name": "6. Pico Máximo (2,000 VUs)",
+      "virtualUsers": 2000,
+      "totalRequests": 8200,
+      "failedRequests": 24,
+      "errorRatePct": 0.29,
+      "durationSec": 1.03,
+      "rps": 7961.2,
+      "avgMs": 222.8,
+      "p50Ms": 229.86,
+      "p95Ms": 279.1,
+      "p99Ms": 295.97,
+      "maxMs": 305.99,
+      "rssMb": 228
+    }
+  ],
+  "cacheStats": {
+    "ok": true,
+    "backend": "lru-memory",
+    "stats": {
+      "size": 3,
+      "maxEntries": 500,
+      "hits": 17101,
+      "misses": 3,
+      "sets": 3,
+      "invalidations": 0,
+      "evictions": 0,
+      "hitRatio": 99.98
+    }
+  }
+}

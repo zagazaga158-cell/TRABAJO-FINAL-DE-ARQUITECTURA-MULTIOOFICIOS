@@ -1,8 +1,9 @@
-# Paso 5 — Pruebas Unitarias e Integración (Implementación Real con Vitest + Supertest)
+# Paso 5 — Pruebas Unitarias e Integración (Implementación Real con Jest + Supertest + Cobertura)
 
 > **Proyecto:** TrabajaYa Perú (`conectaoficios`)  
-> **Herramientas Ejecutables:** **Vitest 5.1.2** + **Supertest** + **WebSocket (`ws`)** + **TypeScript (`tsc --noEmit`)**.  
-> **Estado de Ejecución Verificada:** **5/5 suites aprobadas · 31/31 pruebas exitosas (640 ms) · 0 errores de tipado**.
+> **Herramientas Ejecutables:** **Jest** + **Supertest** + **WebSocket (`ws`)** + **TypeScript (`tsc --noEmit`)**.  
+> **Estado de Ejecución Verificada:** **7/7 suites aprobadas · 44/44 pruebas exitosas · Cobertura global: `96.53%` Statements/Lines, `97.18%` Functions, `75.95%` Branches · 0 errores de tipado**.
+> **Configuración y Reporte:** [`jest.config.cjs`](../../jest.config.cjs) · `npm run test:coverage` genera `coverage/lcov-report/index.html`, `coverage/lcov.info` y `coverage/coverage-summary.json`.
 
 ---
 

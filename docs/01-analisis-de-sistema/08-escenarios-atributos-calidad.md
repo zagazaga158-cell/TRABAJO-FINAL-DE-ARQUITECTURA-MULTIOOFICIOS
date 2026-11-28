@@ -7,10 +7,10 @@
 | **Atributo de calidad** | Rendimiento (`AC01`) |
 | **Fuente** | Cliente, Técnico o Administrador |
 | **Estímulo** | Múltiples usuarios consultan simultáneamente el catálogo filtrado por oficio/Ubigeo, la configuración de Culqi (`/api/payments/culqi/config`), el ledger de transacciones y las conversaciones de chat. |
-| **Condición** | Operación normal y carga concurrente (hasta 120 VUs en prueba local / 100–300 VUs en k6). |
+| **Condición** | Operación normal y carga concurrente progresiva (`10 → 100 → 500 → 1,000 → 1,500 → 2,000 VUs` en `stress-2000vu.k6.js` y `run-load-benchmark.ts`). |
 | **Respuesta esperada** | El sistema entrega resultados desde caché en memoria (`X-Cache: HIT`) o responde `304 Not Modified` si el `ETag` coincide, manteniendo baja latencia sin bloquear la UI. |
-| **Medida** | `p95 < 250 ms`, `p99 < 500 ms`, tasa de fallos `< 1%` y Cache Hit Ratio `>= 80%`. |
-| **Verificación** | Ejecución real de `npm run test:load` (`run-load-benchmark.ts`) y scripts `tests/load/*.k6.js`: **verificado `p95 = 48.03–54.69 ms`, `3,891.9 RPS`, `0%` fallos y `99.87%` Cache Hit Ratio**. |
+| **Medida** | `p95 < 250 ms` (nominal), `p95 < 500 ms` (pico 2,000 VUs), tasa de fallos `< 1%` y Cache Hit Ratio `>= 80%`. |
+| **Verificación** | Ejecución real de `npm run test:load` (`docs/evidencias/load-2000vu-results.json`) y scripts `tests/load/*.k6.js`: **verificado `p95 = 48.17 ms` a 100 VUs y `p95 = 279.10 ms` a 2,000 VUs (`7,961.2 RPS`, `0.29%` error, `99.98%` Cache Hit Ratio)**. |
 | **Estado** | **Aprobado y verificado cuantitativamente.** |
 
 ---

@@ -1,4 +1,4 @@
-name: CI — Calidad, Pruebas, E2E y Build (TrabajaYa Perú)
+name: CI — Calidad, Pruebas Jest + Cobertura, Carga 2000 VUs, E2E y Build (TrabajaYa Perú)
 
 on:
   push:
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   quality-and-tests:
-    name: Lint + Unit + Integration + Build
+    name: Lint + Jest (Unit & Integration + Coverage) + Load 2000 VUs + Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout código fuente
@@ -30,11 +30,27 @@ jobs:
       - name: Verificación de tipos TypeScript (tsc --noEmit)
         run: npm run lint
 
-      - name: Pruebas Unitarias (Vitest)
-        run: npm run test:unit
+      - name: Pruebas Automatizadas Jest + Reporte de Cobertura (Unit + Integration + OpenAPI)
+        run: npm run test:coverage
 
-      - name: Pruebas de Integración API + WebSocket + Caché (Supertest)
-        run: npm run test:integration
+      - name: Subir reporte de cobertura Jest (HTML + LCOV + JSON)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-coverage-report
+          path: coverage/
+          retention-days: 14
+
+      - name: Validación de Atributos de Calidad — Simulación progresiva hasta 2,000 VUs
+        run: npm run test:load
+
+      - name: Subir evidencia de rendimiento (2,000 VUs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-2000vu-evidence
+          path: docs/evidencias/load-2000vu-results.json
+          retention-days: 14
 
       - name: Build de producción (Vite Code Splitting)
         run: npm run build

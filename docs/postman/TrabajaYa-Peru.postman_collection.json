@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "TrabajaYa Perú — Sprint 2 Validación API y Atributos de Calidad",
+    "description": "Colección Postman para validar todos los endpoints REST, OpenAPI/Swagger, Caché (X-Cache/ETag/304), Seguridad RBAC (401/400) y Rendimiento (< 250ms) definidos en Sprint 1 y Sprint 2.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:3000" },
+    { "key": "culqiConfigEtag", "value": "" },
+    { "key": "conversationId", "value": "ORD:PED-POSTMAN-001:986864822" }
+  ],
+  "item": [
+    {
+      "name": "1. Health & OpenAPI",
+      "item": [
+        {
+          "name": "GET /api/health (EQ-02 Disponibilidad)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Tiempo de respuesta < 250ms (EQ-01)', () => pm.expect(pm.response.responseTime).to.be.below(250));",
+                  "const json = pm.response.json();",
+                  "pm.test('Servidor operativo con Clean Architecture', () => { pm.expect(json.ok).to.eql(true); pm.expect(json.architecture).to.include('Clean Architecture'); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/health" }
+        },
+        {
+          "name": "GET /api/openapi.json (OpenAPI 3.0.3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Versión OpenAPI 3.0.3 válida', () => pm.expect(pm.response.json().openapi).to.eql('3.0.3'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/openapi.json" }
+        },
+        {
+          "name": "GET /api/cache/stats (EQ-01 Observabilidad Caché)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Expone hitRatio y métricas LRU', () => pm.expect(pm.response.json().stats).to.have.property('hitRatio'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/cache/stats" }
+        }
+      ]
+    },
+    {
+      "name": "2. Catálogo Nacional & Cotizador Escrow",
+      "item": [
+        {
+          "name": "GET /api/services?oficio=GASFITERIA",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Cabecera X-Cache presente', () => pm.expect(pm.response.headers.get('X-Cache')).to.be.oneOf(['HIT', 'MISS']));",
+                  "pm.test('Solo servicios APROBADOS', () => pm.expect(pm.response.json().services.every(s => s.estadoPublicacion === 'APROBADO')).to.eql(true));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/services?oficio=GASFITERIA" }
+        },
+        {
+          "name": "POST /api/escrow/quote (Invariante Garantía 10% + IGV 18%)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "const q = pm.response.json().quote;",
+                  "pm.test('Garantía 10% y total IGV 18% exactos', () => { pm.expect(q.tarifaClienteUnitaria).to.eql(110); pm.expect(q.totalConIgv).to.eql(259.6); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"precioBase\": 100,\n  \"cantidadTurnos\": 2\n}" },
+            "url": "{{baseUrl}}/api/escrow/quote"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Pagos Culqi & Caché ETag",
+      "item": [
+        {
+          "name": "GET /api/payments/culqi/config (Capturar ETag)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('No expone secretKey (EQ-04)', () => pm.expect(pm.response.json().secretKey).to.be.undefined);",
+                  "const etag = pm.response.headers.get('ETag');",
+                  "pm.test('ETag presente', () => pm.expect(etag).to.be.a('string'));",
+                  "pm.collectionVariables.set('culqiConfigEtag', etag);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/payments/culqi/config" }
+        },
+        {
+          "name": "GET /api/payments/culqi/config con If-None-Match (304 Not Modified)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 304 Not Modified (EQ-01)', () => pm.response.to.have.status(304));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "If-None-Match", "value": "{{culqiConfigEtag}}" }],
+            "url": "{{baseUrl}}/api/payments/culqi/config"
+          }
+        },
+        {
+          "name": "POST /api/payments/culqi/charge (Sandbox S/ 5.00)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Transacción PAID en PEN', () => { const tx = pm.response.json().transaction; pm.expect(tx.status).to.eql('PAID'); pm.expect(tx.currency).to.eql('PEN'); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokenId\": \"tkn_sandbox_postman_01\",\n  \"email\": \"cliente@gmail.com\",\n  \"amountCentimos\": 500,\n  \"description\": \"Validación Postman Culqi\",\n  \"method\": \"YAPE_PLIN\",\n  \"concepto\": \"IMPREVISTO\"\n}"
+            },
+            "url": "{{baseUrl}}/api/payments/culqi/charge"
+          }
+        },
+        {
+          "name": "GET /api/payments/culqi/transactions (Ledger)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Contiene arreglo transactions', () => pm.expect(pm.response.json().transactions).to.be.an('array'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/payments/culqi/transactions" }
+        }
+      ]
+    },
+    {
+      "name": "4. Seguridad RBAC Chat & Despacho 3 Canales",
+      "item": [
+        {
+          "name": "POST /api/chat/conversations/ensure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversationId\": \"{{conversationId}}\",\n  \"ordenId\": \"PED-POSTMAN-001\",\n  \"servicioTitulo\": \"Gasfitería de Emergencia\",\n  \"clienteId\": \"USR-018\",\n  \"clienteNombre\": \"Dr. Alejandro Palomino\",\n  \"trabajadorId\": \"USR-002\",\n  \"trabajadorNombre\": \"Téc. Wilber Mendoza\",\n  \"trabajadorTelefono\": \"986864822\"\n}"
+            },
+            "url": "{{baseUrl}}/api/chat/conversations/ensure"
+          }
+        },
+        {
+          "name": "POST /api/chat/messages como GUEST (EQ-04 Debe devolver 401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Bloqueo 401 Unauthorized para GUEST (EQ-04)', () => pm.response.to.have.status(401));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversationId\": \"{{conversationId}}\",\n  \"senderId\": \"GUEST\",\n  \"senderRole\": \"cliente\",\n  \"text\": \"Intento no autorizado\"\n}"
+            },
+            "url": "{{baseUrl}}/api/chat/messages"
+          }
+        },
+        {
+          "name": "POST /api/notifications/dispatch-order (EQ-02 Resiliencia 3 Canales)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Chat in-app entregado 100% aun sin SMTP/WA', () => pm.expect(pm.response.json().chatDelivered).to.eql(true));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ordenId\": \"PED-POSTMAN-002\",\n  \"servicioTitulo\": \"Instalación Eléctrica\",\n  \"clienteId\": \"USR-018\",\n  \"clienteNombre\": \"Dr. Alejandro Palomino\",\n  \"workers\": [\n    {\n      \"usuarioId\": \"USR-002\",\n      \"nombre\": \"Téc. Wilber Mendoza\",\n      \"telefono\": \"986864822\",\n      \"email\": \"wilber@gmail.com\"\n    }\n  ],\n  \"whatsappMessage\": \"Solicitud de prueba Postman\"\n}"
+            },
+            "url": "{{baseUrl}}/api/notifications/dispatch-order"
+          }
+        }
+      ]
+    }
+  ]
+}

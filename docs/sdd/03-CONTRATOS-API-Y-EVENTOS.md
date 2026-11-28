@@ -1,6 +1,7 @@
 # 03 — Especificación de Contratos API, WebSocket e Integraciones Externas (SDD)
 
-> **Fuentes de Verdad en Código:** `server.ts`, `src/components/CulqiCheckoutModal.tsx`, `src/context/ConectaContext.tsx`, `src/utils/whatsappSolicitud.ts` y `.env.example`.  
+> **Fuentes de Verdad en Código:** `server.ts`, `server/presentation/routes/apiRoutes.ts`, `server/infrastructure/docs/openapi.ts`, `docs/openapi.json`, `src/components/CulqiCheckoutModal.tsx`, `src/context/ConectaContext.tsx`, `src/utils/whatsappSolicitud.ts` y `.env.example`.  
+> **Documentación OpenAPI / Swagger Interactiva:** `GET /api-docs` (Swagger UI) y `GET /api/openapi.json` (OpenAPI 3.0.3).  
 > **Puerto por defecto:** `PORT=3000` (`http://0.0.0.0:3000`). **Límite de cuerpo JSON:** `2mb`.
 
 ---
